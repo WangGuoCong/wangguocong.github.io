@@ -346,8 +346,8 @@
 
           
             <span class="post-meta-divider">|</span>
-            <span class="page-pv">热度
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>℃
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
             </span>
           
 
@@ -434,6 +434,27 @@
 
   
 
+
+
+
+  <div class="comments" id="comments">
+    
+    <div id="container"></div>
+    <link rel="stylesheet" href="/css/gitcomment_default.css">
+    <script src="/js/src/gitment.browser.js"></script>
+    <script>
+    var gitment = new Gitment({
+      id: '我的第一个博客',
+      owner: 'wangguocong',
+      repo: 'https://wangguocong.github.io',
+      oauth: {
+        client_id: 'ef791b79bda4918a795d',
+        client_secret: '591b69b72a617fbc139db44981c7dd9b13d5a0f7',
+      },
+    })
+    gitment.render('container')
+    </script>
+  </div>
 
 
         </div>
@@ -602,17 +623,17 @@
 
   
     <span class="site-uv">
-      您是第
+      <i class="fa fa-user"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      个小伙伴
+      
     </span>
   
 
   
     <span class="site-pv">
-      本站总浏览
+      <i class="fa fa-eye"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
+      
     </span>
   
 </div>

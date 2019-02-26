@@ -84,7 +84,7 @@
 <meta property="og:url" content="http://yoursite.com/guestbook/index.html">
 <meta property="og:site_name" content="欢迎来到王国聪的博客">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-25T08:45:36.409Z">
+<meta property="og:updated_time" content="2019-02-26T01:57:15.500Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="guestbook">
 
@@ -264,7 +264,7 @@
       <div class="post-body">
         
         
-          <div class="ds-recent-visitors" data-num-items="28" data-avatar-size="42" id="ds-recent-visitors"></div>
+          
         
       </div>
       
@@ -285,6 +285,27 @@
 
   
 
+
+
+
+  <div class="comments" id="comments">
+    
+    <div id="container"></div>
+    <link rel="stylesheet" href="/css/gitcomment_default.css">
+    <script src="/js/src/gitment.browser.js"></script>
+    <script>
+    var gitment = new Gitment({
+      id: 'guestbook',
+      owner: 'wangguocong',
+      repo: 'https://wangguocong.github.io',
+      oauth: {
+        client_id: 'ef791b79bda4918a795d',
+        client_secret: '591b69b72a617fbc139db44981c7dd9b13d5a0f7',
+      },
+    })
+    gitment.render('container')
+    </script>
+  </div>
 
 
         </div>
@@ -428,17 +449,17 @@
 
   
     <span class="site-uv">
-      您是第
+      <i class="fa fa-user"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      个小伙伴
+      
     </span>
   
 
   
     <span class="site-pv">
-      本站总浏览
+      <i class="fa fa-eye"></i>
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
+      
     </span>
   
 </div>
