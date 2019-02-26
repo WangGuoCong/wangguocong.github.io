@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html class="theme-next gemini use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -94,7 +94,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
+    scheme: 'Gemini',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -284,28 +284,18 @@
           
 
   
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+   </div>
 
 
 
-
-  <div class="comments" id="comments">
-    
-    <div id="container"></div>
-    <link rel="stylesheet" href="/css/gitcomment_default.css">
-    <script src="/js/src/gitment.browser.js"></script>
-    <script>
-    var gitment = new Gitment({
-      id: 'guestbook',
-      owner: 'wangguocong',
-      repo: 'https://wangguocong.github.io',
-      oauth: {
-        client_id: 'ef791b79bda4918a795d',
-        client_secret: '591b69b72a617fbc139db44981c7dd9b13d5a0f7',
-      },
-    })
-    gitment.render('container')
-    </script>
-  </div>
 
 
         </div>
@@ -415,8 +405,8 @@
 
 
         
-      </div>
-    </main>
+      </main></div>
+    
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
@@ -438,7 +428,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
 
 
 
@@ -484,7 +474,7 @@
 
     
 
-  </div>
+  
 
   
 
@@ -604,6 +594,45 @@
 
 
 
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+        <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: window.location.pathname, 
+            owner: '',
+            repo: '',
+            
+            oauth: {
+            
+            
+                client_secret: '591b69b72a617fbc139db44981c7dd9b13d5a0f7',
+            
+                client_id: 'ef791b79bda4918a795d'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
 
 
 
