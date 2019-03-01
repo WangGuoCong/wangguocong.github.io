@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="专业,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="欢迎 来到  王国聪的博客!  本文大部分引用于原创： 极品黄牛 游戏扶持by腾讯游戏学院 1引用作者：极品黄牛 MOBA手游视野受限？试试这样设计游戏摄像机​      ​     王者荣耀，玩的时候有一个较大的痛点：某些技能范围较大，甚至超出了屏幕，很多时候技能都不确定自己是否打中，只能“盲狙”。另外，由于手机游戏的设置，不能像鼠标操作一样很好地观察地形，团战发生时，不能很好地同时兼顾查看战场">
+<meta name="keywords" content="专业">
+<meta property="og:type" content="article">
+<meta property="og:title" content="游戏摄像机设计（moba）">
+<meta property="og:url" content="http://yoursite.com/2019/03/01/游戏摄像机设计/index.html">
+<meta property="og:site_name" content="欢迎来到王国聪的博客">
+<meta property="og:description" content="欢迎 来到  王国聪的博客!  本文大部分引用于原创： 极品黄牛 游戏扶持by腾讯游戏学院 1引用作者：极品黄牛 MOBA手游视野受限？试试这样设计游戏摄像机​      ​     王者荣耀，玩的时候有一个较大的痛点：某些技能范围较大，甚至超出了屏幕，很多时候技能都不确定自己是否打中，只能“盲狙”。另外，由于手机游戏的设置，不能像鼠标操作一样很好地观察地形，团战发生时，不能很好地同时兼顾查看战场">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/3.gif">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/4.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/5.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/6.gif">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/7.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/8.gif">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/9.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/10.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/11jpg.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/12.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/13.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/14.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/15.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/16.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/17.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/18.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/19.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/20.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/21.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/22.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/23.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/24.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/25.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/26.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/27.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/28.gif">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/28.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/29.png">
+<meta property="og:updated_time" content="2019-03-01T08:36:55.156Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="游戏摄像机设计（moba）">
+<meta name="twitter:description" content="欢迎 来到  王国聪的博客!  本文大部分引用于原创： 极品黄牛 游戏扶持by腾讯游戏学院 1引用作者：极品黄牛 MOBA手游视野受限？试试这样设计游戏摄像机​      ​     王者荣耀，玩的时候有一个较大的痛点：某些技能范围较大，甚至超出了屏幕，很多时候技能都不确定自己是否打中，只能“盲狙”。另外，由于手机游戏的设置，不能像鼠标操作一样很好地观察地形，团战发生时，不能很好地同时兼顾查看战场">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/01/游戏摄像机设计/1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/01/游戏摄像机设计/">
+
+
+
+
+
+  <title>游戏摄像机设计（moba） | 欢迎来到王国聪的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/3.jpg" alt="欢迎来到王国聪的博客">
+        </a>
+      </div>
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">欢迎来到王国聪的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">所有的为时已晚都是开始的最好时候</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/01/游戏摄像机设计/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王国聪">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="欢迎来到王国聪的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">游戏摄像机设计（moba）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-01T15:18:26+08:00">
+                2019-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/unity/" itemprop="url" rel="index">
+                    <span itemprop="name">unity</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/unity/游戏摄像机设计/" itemprop="url" rel="index">
+                    <span itemprop="name">游戏摄像机设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/01/游戏摄像机设计/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/01/游戏摄像机设计/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>欢迎 来到  <a href="https://wangguocong.github.io/archives/" target="_blank" rel="noopener">王国聪</a>的博客! </p>
+<p>本文大部分引用于原创： 极品黄牛 <a href="https://mp.weixin.qq.com/s/K9SaibWuv-KklHefadcMyg" target="_blank" rel="noopener">游戏扶持by腾讯游戏学院</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">引用作者：极品黄牛</span><br></pre></td></tr></table></figure>
+<h1 id="MOBA手游视野受限？试试这样设计游戏摄像机"><a href="#MOBA手游视野受限？试试这样设计游戏摄像机" class="headerlink" title="MOBA手游视野受限？试试这样设计游戏摄像机"></a><center>MOBA手游视野受限？试试这样设计游戏摄像机</center></h1><p>​     </p>
+<p>​     王者荣耀，玩的时候有一个较大的痛点：某些技能范围较大，甚至超出了屏幕，很多时候技能都不确定自己是否打中，只能“盲狙”。另外，由于手机游戏的设置，不能像鼠标操作一样很好地观察地形，团战发生时，不能很好地同时兼顾查看战场和操作自己的英雄。</p>
+<p>​    像《王者荣耀》这一类的手机MOBA游戏，特别是虚拟摇杆方式的，已经脱离原来端游MOBA的鼠标操作（实际上是即时战略）的方式，所以有很多端游的经典MOBA元素（例如插眼、控视野）不能很好地实现，团战、队友配合也因为视野的原因受到限制。</p>
+<p>​    另外，也许是为了增加游戏新的乐趣，《王者荣耀》现在越来越多出各种手长技能的英雄，那同时带来的视野限制就愈加明显。本质来说，手游MOBA对比端游MOBA，少了一个操作维度——视野控制</p>
+<p><img src="/2019/03/01/游戏摄像机设计/1.jpg" alt="1"></p>
+<center>控制的英雄始终锁在画面中央</center>
+
+<p>​    端游MOBA的鼠标操作，可以很方便地“推一下”画面边缘来调整视野，而手游MOBA只有两个操作维度——左右手两个大拇指，很难再腾出第三个操作维度来控制视野。</p>
+<p><img src="/2019/03/01/游戏摄像机设计/2.jpg" alt="2"></p>
+<center>需要较为高端的三指操作</center>
+
+<p>​    摄像机就是我们的画面，也可以称之为镜头，电影和一些主机单机游戏，对摄像机都有非常巧妙的运用，甚至有专门的镜头导演来处理这方面的工作。</p>
+<p>​    所幸游戏的开发者也进行了一些优秀的设计来解决这个问题，主要是两个方向：<strong>1、抬升摄像机；2、摄像机偏移。</strong></p>
+<p><strong>▶《王者荣耀》</strong></p>
+<h3 id="一、抬升摄像机"><a href="#一、抬升摄像机" class="headerlink" title="一、抬升摄像机"></a><center>一、抬升摄像机</center></h3><p><strong>百里守约-2技能：</strong></p>
+<p><img src="/2019/03/01/游戏摄像机设计/3.gif" alt="3"></p>
+<p>总体来看，摄像机运动分为三个部分：</p>
+<p><img src="/2019/03/01/游戏摄像机设计/4.jpg" alt="4"></p>
+<p>1、抬升：随着技能范围圈的扩展（射程提高），摄像机同步缓缓拉高，玩家视野变大。</p>
+<p>2、固定：摄像机高度固定在最高点，不再运动。</p>
+<p>3、回落：摄像机快速回落，恢复到正常高度。</p>
+<p>摄像机运动的优化：</p>
+<p>为了平滑摄像机的移动，带来舒适的感觉。</p>
+<font color="blue">1、延后抬升</font>：<br><br>​    通过录屏查看每一帧，我们可以发现，<u><strong>按下技能按钮那一瞬间，技能圈范围的扩散动作就开始了。但是摄像机的抬升动作，并不在按下技能同时进行的，而是持续按住若干时间后（技能圈扩散到一定范围后）才开始抬升动作的。</strong></u><br><br><img src="/2019/03/01/游戏摄像机设计/5.jpg" alt="5"><br><br>​    这样做的好处在于，摄像机抬升动作是一种很打破常规的现象，玩家先接受技能圈扩散，然后摄像机随着技能圈扩散抬升，更容易接受。<br><br>​    另外，更重要的一点就是，玩过守约的玩家都知道，实战情况下，需要使用2技能“贴脸射击”，即和敌人零距离接触的情况下，无需瞄准，快速点击-松开2技能按钮立即释放技能。<br><br><br><br><img src="/2019/03/01/游戏摄像机设计/6.gif" alt="6"><br><br>如果按下同时就开始了摄像机的抬升，那么玩家在快速点击-松开操作时，无论速度多块，都会经历一下“摄像机快速抬升又马上下落”的“跳闪”的感觉，会造成视觉极度不适。<br><br><font color="blue">2、技能圈的扩散和抬升同步</font>
+
+<p>摄像机的抬升幅度，和技能圈扩散的幅度，非常巧妙地同步。如何看出来的？通过抽取录屏的中间几帧，我们可以看到，摄像机的抬升“抵消”了技能圈的扩散，造成了一个错觉：技能圈没有扩散，而只是摄像机在抬升。</p>
+<p><img src="/2019/03/01/游戏摄像机设计/7.jpg" alt="7"></p>
+<p>对比上面的截图发现，技能圈范围好像没有变大，但只要看塔的大小就知道，已经拉伸了很多了。</p>
+<p>这样的好处在于，可以减少视觉负担，让人感觉“只有一个在变化”。</p>
+<p>另外，也发现了一个有趣的现象，在动画的最后几帧，技能圈没有扩大反而缩小了，实际上是技能圈先停止放大，但摄像机依然向上抬升了若干高度。</p>
+<font color="blue">3、延后回落</font>
+
+<p>实际上，释放完技能或取消技能后，摄像机并不是立即回落的，而是空中停顿若干秒后，才开始回落。</p>
+<p>通过看取消技能的录屏，我们可以很明显地观察到这一点：</p>
+<p><img src="/2019/03/01/游戏摄像机设计/8.gif" alt="8"></p>
+<p>其实道理很容易理解，高中物理我们学过，把一块石头垂直抛起，石头上升的速度越来越慢，最后像是停在了空中，然后才开始下落。这种更符合我们常识的运动方式，会让我们觉得更加自然。</p>
+<p><img src="/2019/03/01/游戏摄像机设计/9.jpg" alt="9"></p>
+<p>另外，一些通用的优化方法如减速移动我就不另外介绍了，总之，这个技能无论是视觉效果、代入感等做得都很不错。</p>
+<p><strong>沈梦溪3技能：</strong></p>
+<p><img src="/2019/03/01/游戏摄像机设计/10.jpg" alt="10"></p>
+<p>大招和守约类似，我只说不同的地方：</p>
+<p>1、沈梦溪3技能的技能摄像机抬升，是在按下技能按钮的同时进行的（啪啪啪打脸），快速点击-松开技能按钮实现的操作不是原地释放而是取消技能释放（纳尼？），为什么这样设计呢？</p>
+<p>我的理解是，守约的2技能其实是不需要指定方向的（默认是脸的朝向），而梦溪的3技能是范围打地板的法术技能，需要指定一个释放位置（长按一定时间后会指定为自己脚下）。</p>
+<p>另外梦溪的3技能在实战中的定位，很少会需要快速贴脸释放，而是拉长距离发挥其距离和范围优势。</p>
+<p>2、摄像机的下落时间的区别。如果技能没有释放出去（仅拉伸摄像机但取消了），摄像机是直接回落的。如果技能释放出去了，摄像机会在空中略微停顿一会（需要查看炸弹轰炸的效果）。</p>
+<p><strong><font color="red">总的来说，《王者荣耀》最近越来越多出这些手长的英雄和技能，摄像机抬升不是个好办法。摄像机抬升本身会带来战场信息优势（你比别人看的远），摄像机观看的半径每多1码，带来的优势是几何式上升的（因为可视面积增得更大）。</font></strong></p>
+<p><img src="/2019/03/01/游戏摄像机设计/11jpg.jpg" alt="11jpg"></p>
+<p>看女娲的技能描述我们就可以知道，抬高视野本身，也是有“技能强度”的因素影响的，但“视野”这个因素不能很好地转化为常规数值（攻血法），这就导致这类技能的平衡性是很难做的（虽然也有人认为这个特性聊胜于无）。</p>
+<p>守约的2技能抬高摄像机还好理解，凭什么沈梦溪的技能也能抬高摄像机看这么远？而且一旦认为抬高摄像机对技能强度的平衡有影响，那么势必会削弱其数值（例如伤害等等），具体削多少？只能看不停地试试试了。</p>
+<p>一味地抬高摄像机是偷懒的做法，但是，例如干将、墨子，甚至是玄策等，手长技能距离远看不到的问题依然是无法解决，所幸还有其他解决方案。</p>
+<h3 id="二、摄像机偏移"><a href="#二、摄像机偏移" class="headerlink" title="二、摄像机偏移"></a><center>二、摄像机偏移</center></h3><p>这是目前我比较看好的一种方式，但只有几个英雄技能有，分别是吕布的大招、司马懿的大招、女娲的传送。</p>
+<p>我们先看一下吕布的大招：</p>
+<p><img src="/2019/03/01/游戏摄像机设计/12.jpg" alt="12"></p>
+<p>在总的技能范围内，还有一个内圈的概念，大致是我红色虚线划出的区域。</p>
+<p>1、当技能指示器的中点（也就是你手指触点投射位置），在内圈内移动时，摄像机不做任何变化。</p>
+<p>2、当指示器中点超出红色区域，就进入了另外一个状态，摄像机不再锁定英雄，而是会随着你手指的移动而移动，姑且称之为摄像机偏移状态。且这个状态不可逆，即使把中点再移回内圈，依然会保持这个状态。</p>
+<p><img src="/2019/03/01/游戏摄像机设计/13.png" alt="13"></p>
+<p>摄像机偏移状态下，手指触点和技能指示器的依然保持着映射关系：</p>
+<p><img src="/2019/03/01/游戏摄像机设计/14.jpg" alt="14"></p>
+<p>如上图，技能按钮的叉叉就是手指的位置，对应游戏内地板上技能指示器的中点位置，技能按钮外的范围（红色虚线圈圈）对应游戏内实际的技能范围圈（大出了屏幕），以这个比例关系，手指可以很轻松地控制技能指示器的位置。</p>
+<p>但是，摄像机偏移状态下，摄像机的位置既不绑定英雄身上，也不绑定技能指示器的中点，是在这两个点的中间位置，那么具体是如何确定的呢？</p>
+<p><img src="/2019/03/01/游戏摄像机设计/15.jpg" alt="15"></p>
+<p>为了搞清楚这一点，我们就还原一下，摄像机是如何从静止到移动的：</p>
+<p>1、首先，中点位置在内圈内，摄像机位置和英雄位置重合。</p>
+<p><img src="/2019/03/01/游戏摄像机设计/16.jpg" alt="16"></p>
+<p>2、随着我们继续拖动技能指示器，拉出外圈后，摄像机就开始移动了（为了区别我用了黄色标出）。</p>
+<p>看得出，摄像机的移动和技能指示器移动呈比例关系的（因为，只要技能指示器移动一点点，摄像机就会相应移动一点点）。</p>
+<p><img src="/2019/03/01/游戏摄像机设计/17.jpg" alt="17"></p>
+<p>3、由于游戏是采用倾斜视角，为了防止误解，我把这个比例关系进行了简化，大家可以很直观地看明白：</p>
+<p><img src="/2019/03/01/游戏摄像机设计/18.jpg" alt="18"></p>
+<p>简化成下图：</p>
+<p><img src="/2019/03/01/游戏摄像机设计/19.png" alt="19"></p>
+<p>由于技能指示器从内圈开始走，摄像机才开始跟着走，所以当摄像机走过dist_x距离时，技能指示器走过了dist_y距离，这样就能很清楚地知道两者的比例关系了。</p>
+<p>但是，摄像机的移动和技能指示器的移动真的是按比例对应的吗？</p>
+<p>我们知道，当启动摄像机偏移后，摄像机和技能指示器中点的起点是不一样的，如下图：</p>
+<p><img src="/2019/03/01/游戏摄像机设计/20.png" alt="20"></p>
+<p>由于技能指示器不能超过技能范围，所以拉到最边缘，技能指示器中点的运动轨迹应该和技能范围圈重合。</p>
+<p>那么，摄像机移动的轨迹，就有两种可能性：</p>
+<font color="blue">1、比例对应</font>
+
+
+
+<p>这种对应方式，摄像机的轨迹应该是下图这样：</p>
+<p><img src="/2019/03/01/游戏摄像机设计/21.png" alt="21"></p>
+<p>摄像机以英雄为圆心，画一个正圆，但由于技能指示器左边走的少，右边走的多，和摄像机的移动对应的话，将导致摄像机左边移动的速度慢，右边移动的速度快。</p>
+<font color="blue">2、数值对应</font>
+
+
+
+<p>相当于是，例如：技能指示器移动10个像素，摄像机移动1个像素（由于摄像机是个3D空间的概念，矢量单位不是像素而是码，为了方便理解叫像素），如此，摄像机的运动轨迹应该是下图这样：（像是个鸡蛋）</p>
+<p><img src="/2019/03/01/游戏摄像机设计/22.png" alt="22"></p>
+<p>到底是哪种对应方式呢？我们直接进入游戏试试就知道了。</p>
+<p>拿出我的量天尺，计算一下手指移动同样的距离，摄像机在向左或往右两边移动的距离是否一致就可以了。</p>
+<p>具体过程我就不再演示了，验证过之后发现应该是第2种鸡蛋式的运动轨迹。</p>
+<p>不过，这样的粗略方法不能做到精确测量，由于游戏视角是一定倾斜角度，必须也要把这个给计算进去。具体过程我也不再赘述了，关键点在于要知道游戏到底倾斜了多少，我提供一个思路，有兴趣的可以自己去试试：</p>
+<p>1、先找一个没有摄像机偏移的英雄，将技能摇杆移到0点位置，由于摇杆和技能指示器是一比一对应的，所以技能指示器也应该在英雄上方90°的位置。</p>
+<p><img src="/2019/03/01/游戏摄像机设计/23.jpg" alt="23"></p>
+<p>2、但实际上位置却微微往右偏了，大家知道这就是由于摄像机倾斜引起的，所以我们再截一张把技能指示器放在英雄上方90°的位置，再比较两张图的夹角，通过计算就可以知道摄像机倾斜了多少了。</p>
+<p><img src="/2019/03/01/游戏摄像机设计/24.jpg" alt="24"></p>
+<p>这样一来，我们就搞清楚了吕布大招摄像机偏移背后的机制了。总的来说，这种交互方式观感还是很好的，能很好地解决超远距离技能看不到的问题，不用去学难用的三指操作，是一个很好的设计。</p>
+<p>如果非要挑毛病的话，就是这个技能没有很好地处理实战中，玩家拉出指示器时“手抖”或不停移动的情况，一旦进入了摄像机偏移状态，摄像机的位置是会随着手指的任意移动而改变，这就像你看新闻直播时摄影师不停抖来抖去一样难受。所幸这个技能使用的摄像机拖动范围很小，技能从按下到释放时间也很短，而且是大招不会频繁释放，所以问题还不太大。</p>
+<p>另外，给大家提个小问题，如果这套机制想应用到墨子的2技能上，应该如何处理？给个提示，吕布的大招是范围地板技能，需要指定方向和距离，因为其释放距离不是固定的（可以放脚下可以放最外圈），但墨子的2技能只需要指定方向，其实更简单，但要如何平滑摄像机的移动呢？</p>
+<p>可以先想一下，答案其实就在下文《虚荣》游戏的介绍里。</p>
+<p><img src="/2019/03/01/游戏摄像机设计/25.jpg" alt="25"></p>
+<p>另外介绍一下司马懿大招和女娲传送的摄像机偏移：</p>
+<p>1、总体逻辑和吕布的类似，由于技能的总范围略大（约半张地图这样远），所以内圈的范围也比较大，大概画了一下，都超出了屏幕下方位置。</p>
+<p><img src="/2019/03/01/游戏摄像机设计/26.jpg" alt="26"></p>
+<p>2、当拖出内圈后，摄像机就不再附着于英雄，而是“吸附”在了技能指示器上。观察下图可以发现，拖出外圈的那一瞬间，摄像机就和英雄脱钩，同时和技能指示器挂钩，之后无论指示器如何移动，摄像机始终保持固定的那一段距离：（当然不能移动外屏幕范围外）</p>
+<p><img src="/2019/03/01/游戏摄像机设计/27.jpg" alt="27"></p>
+<p>总的来说，司马懿大招（女娲传送用的是一样的机制）的摄像机偏移没有吕布大招做得精巧，但相对简单容易理解，并且其技能特性是需要发挥其距离优势（摆远了放），所以这种方式摄像机偏移也够用。</p>
+<p><strong>▶《虚荣》</strong></p>
+<p>《虚荣》采用了独立一套设计逻辑，技术上也比较先进（画面，以及支持120帧率）。</p>
+<p>《虚荣》的游戏摄像机的移动机制非常平滑，对于超长距离的技能也采用了摄像机镜头偏移的机制，这里我就拿一个英雄技能来剖析是如何实现的。</p>
+<p><img src="/2019/03/01/游戏摄像机设计/28.gif" alt="28"></p>
+<p>上图是鱼人大招的录屏，主要是采用一种叫做“平滑插值”方法来实现。</p>
+<p>启动摄像机偏移机制后，由于技能指示器的移动确立了摄像机新的位置，但摄像机没有立即移动到目标位置，而是延迟若干毫秒后再移动。</p>
+<p>简单地说“平滑插值”，就是延后响应，让摄像机不是瞬间达到目标位置，而是略微延后，很多单机游戏都采用了这种方式，例如SFC游戏《大金刚》，可以减少摄像机的大幅度移动，减少眩晕感。</p>
+<p><img src="/2019/03/01/游戏摄像机设计/28.jpg" alt="28"></p>
+<center>《大金刚》里人物充斥着大量的快速、长距离的弹跳，需要平滑插值来减少镜头的弹跳</center>
+
+<p>《虚荣》的镜头移动体验很好，并且这种机制对应手指的“抖动”也有良好的效果，由于摄像机总是“慢半拍”，所以过于频繁的移动反而不会引起摄像机的频繁移动。虽然从竞技角度上来说“即刻响应”是需要的，但是摄像机就是玩家的眼睛，我们无法忍受眼前的景物不停地切换、晃动，应该更注重体验感。</p>
+<p>根据观察这些游戏后，总结出此类2.5D视角手游MOBA游戏的移动摄像机的一些方法，希望对大家有帮助：</p>
+<h4 id="1、不要立马动摄像机"><a href="#1、不要立马动摄像机" class="headerlink" title="1、不要立马动摄像机"></a>1、不要立马动摄像机</h4><p>如果某个机制触发了摄像机的移动，不要即刻移动，可以使用“缓慢加速”的方式，尽量多提供一些线索、隐喻，让这一个过程不突兀。</p>
+<p>另外，需要停住移动中的摄像机时，尽量使用“减速移动”，这种移动方式更符合我们人类的心理认知，感受也更舒适。</p>
+<h4 id="2、摄像机能少动就少动"><a href="#2、摄像机能少动就少动" class="headerlink" title="2、摄像机能少动就少动"></a>2、摄像机能少动就少动</h4><p>例如吕布的大招摄像机偏移的距离，尽量保持克制，能少移动就少移动。</p>
+<p>摄像机的移动速度也尽可能放缓，略微延后一些关系也不大。</p>
+<h4 id="3、摄像机移动一定要有过渡，尽量使用平推，不要跳变"><a href="#3、摄像机移动一定要有过渡，尽量使用平推，不要跳变" class="headerlink" title="3、摄像机移动一定要有过渡，尽量使用平推，不要跳变"></a>3、摄像机移动一定要有过渡，尽量使用平推，不要跳变</h4><p>什么是平推，什么是跳变？</p>
+<p>举个例子，我们玩《王者荣耀》有两种方法查看地图其他位置的方法，一种是直接点击左上角的小地图，将画面切换到点击的位置，另外一种方法就是右上角拖屏区域可以拖动地图至想要查看的区域。第一种就是跳变，第二张就是平推。</p>
+<p><img src="/2019/03/01/游戏摄像机设计/29.png" alt="29"></p>
+<p>就像现在UI界面的过渡都需要有穿插动效一样，镜头的移动，最好是能够平滑过渡，就像我们看电影，导演需要将画面跳转，也是采用镜头平移，同一个场景下，从当前的视野，平移到另外一个视野。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="王国聪 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="王国聪 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/专业/" rel="tag"># 专业</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/01/Unity体积光/" rel="next" title="Unity3D实现体积光">
+                <i class="fa fa-chevron-left"></i> Unity3D实现体积光
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+  
+   </div>
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/2.jpg" alt="王国聪">
+            
+              <p class="site-author-name" itemprop="name">王国聪</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangguocong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangzhezhijian" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/6072272096/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wa.ng1846" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+	
+          
+          
+
+          
+          
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MOBA手游视野受限？试试这样设计游戏摄像机"><span class="nav-number">1.</span> <span class="nav-text">MOBA手游视野受限？试试这样设计游戏摄像机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、抬升摄像机"><span class="nav-number">1.0.1.</span> <span class="nav-text">一、抬升摄像机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、摄像机偏移"><span class="nav-number">1.0.2.</span> <span class="nav-text">二、摄像机偏移</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、不要立马动摄像机"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">1、不要立马动摄像机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、摄像机能少动就少动"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">2、摄像机能少动就少动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、摄像机移动一定要有过渡，尽量使用平推，不要跳变"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">3、摄像机移动一定要有过渡，尽量使用平推，不要跳变</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王国聪</span>
+
+  
+</div>
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'kFDzUjHEhV5wo8WKMcXQGmB7-gzGzoHsz',
+        appKey: 'vPuL0oXJC12Vo7xj524tF3ng',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  	<!-- 页面点击小红心 -->
+	<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+
