@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="专业,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="欢迎 来到 我 王国聪的博客!  资料引用于SIKI公众号 体积光：体积光是现实中常见的因丁达尔效应而产生的一种大气现象，文人墨客常用“慵懒的阳光泄下”描绘该现象带来的美感。 如图所示：                            青藏高原上雨后初晴的体积光 体积光是由空气中的水蒸气和灰尘对光线的散射造成的，显然在实时渲染中我们无法模拟庞杂的微小粒子，只能用近似的方法获得，我们这里将更加">
+<meta name="keywords" content="专业">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity3D实现体积光">
+<meta property="og:url" content="http://yoursite.com/2019/03/01/Unity体积光/index.html">
+<meta property="og:site_name" content="欢迎来到王国聪的博客">
+<meta property="og:description" content="欢迎 来到 我 王国聪的博客!  资料引用于SIKI公众号 体积光：体积光是现实中常见的因丁达尔效应而产生的一种大气现象，文人墨客常用“慵懒的阳光泄下”描绘该现象带来的美感。 如图所示：                            青藏高原上雨后初晴的体积光 体积光是由空气中的水蒸气和灰尘对光线的散射造成的，显然在实时渲染中我们无法模拟庞杂的微小粒子，只能用近似的方法获得，我们这里将更加">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/Unity体积光/640.webp">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/Unity体积光/666.webp">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/Unity体积光/示例.webp">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/Unity体积光/优化.webp">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/Unity体积光/优化2.webp">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/Unity体积光/优化3.webp">
+<meta property="og:updated_time" content="2019-03-01T02:59:53.825Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unity3D实现体积光">
+<meta name="twitter:description" content="欢迎 来到 我 王国聪的博客!  资料引用于SIKI公众号 体积光：体积光是现实中常见的因丁达尔效应而产生的一种大气现象，文人墨客常用“慵懒的阳光泄下”描绘该现象带来的美感。 如图所示：                            青藏高原上雨后初晴的体积光 体积光是由空气中的水蒸气和灰尘对光线的散射造成的，显然在实时渲染中我们无法模拟庞杂的微小粒子，只能用近似的方法获得，我们这里将更加">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/01/Unity体积光/640.webp">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/01/Unity体积光/">
+
+
+
+
+
+  <title>Unity3D实现体积光 | 欢迎来到王国聪的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/3.jpg" alt="欢迎来到王国聪的博客">
+        </a>
+      </div>
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">欢迎来到王国聪的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">所有的为时已晚都是开始的最好时候</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/01/Unity体积光/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wangguocong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="欢迎来到王国聪的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Unity3D实现体积光</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-01T10:26:05+08:00">
+                2019-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/01/Unity体积光/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/01/Unity体积光/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>欢迎 来到 我 <a href="https://wangguocong.github.io/archives/" target="_blank" rel="noopener">王国聪</a>的博客! </p>
+<p><strong>资料引用于</strong><a href="https://mp.weixin.qq.com/s/pGokoiqHxgeU57zpEuzs3g" target="_blank" rel="noopener">SIKI公众号</a></p>
+<h1 id="体积光："><a href="#体积光：" class="headerlink" title="体积光："></a>体积光：</h1><p>体积光是现实中常见的因丁达尔效应而产生的一种大气现象，文人墨客常用“慵懒的阳光泄下”描绘该现象带来的美感。</p>
+<p>如图所示：</p>
+<p><img src="/2019/03/01/Unity体积光/640.webp" alt="640">                           <center>青藏高原上雨后初晴的体积光</center></p>
+<p>体积光是由空气中的水蒸气和灰尘对光线的散射造成的，显然在实时渲染中我们无法模拟庞杂的微小粒子，只能用近似的方法获得，我们这里将更加着重于实现。</p>
+<p>我将使用Unity自带的Shadowmap实现体积光，众所周知，实时渲染中的阴影是通过将像素点的世界坐标（在fragment shader中获得或由像素深度反推获得）乘灯光的viewProjectionMatrix获得该像素点在shadowmap下的uv，并与shadowmap记录的像素点深度进行比较，若shadowmap记录的深度大于等于该点，则表示该点并没有在阴影下，应该受到光照，反之则表示该点受到遮挡，不应该受到光照。Unity中目前支持的实时光照有Directional Light, Spot Light, Point Light，这三种光照类型的实现大同小异。</p>
+<p>另外，希望大家在阅读之前，确保自己对Unity渲染管线，官方提供的.cginc文件以及CommandBuffer, GL等API比较熟悉，接下来的分析将不会出现对此类基础的详解。</p>
+<p>效果的实现全部在siki的开源里，注意，本开源项目并非原创，在经过Slightly Mad大神的同意后，对其开源原型进行魔改，增减，并上传：</p>
+<p>源码地址：<a href="http://link.zhihu.com/?target=https%3A//github.com/MaxwellGengYF/Unity-Volumetric-Light" target="_blank" rel="noopener">http://link.zhihu.com/?target=https%3A//github.com/MaxwellGengYF/Unity-Volumetric-Light</a></p>
+<p><img src="/2019/03/01/Unity体积光/666.webp" alt="666"></p>
+<p>下面是siki对体积光的介绍，我附录在下：</p>
+<h2 id="Directional-Light："><a href="#Directional-Light：" class="headerlink" title="Directional Light："></a>Directional Light：</h2><p>Directional light常用来模拟太阳光，月光等自然光照，由于所有物体都会受到directional light的影响，因此我们的可以直接使用后处理来实现。正如链接里的解释，raymarch的基本原理就是将一条线段按比例分成多段，然后将每个顶点上的采样结果相加，所以首先需要获得射线的起点，我们通过以下代码获得renderTexture上的4个角的近裁面位置，然后在后处理shader中通过fragment shader的线性插值即可获得每个像素点在近裁面上的位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cam = GetComponent&lt;Camera&gt;();</span><br><span class="line">Matrix4x4 inverseViewProjectionMatrix = GL.GetGPUProjectionMatrix(cam.projectionMatrix, true);</span><br><span class="line">inverseViewProjectionMatrix *= cam.worldToCameraMatrix;</span><br><span class="line">inverseViewProjectionMatrix = inverseViewProjectionMatrix.inverse;</span><br><span class="line">Vector3 leftBottom = inverseViewProjectionMatrix.MultiplyPoint(new Vector3(-1, -1, 1));</span><br><span class="line">Vector3 rightBottom = inverseViewProjectionMatrix.MultiplyPoint(new Vector3(1, -1, 1));</span><br><span class="line">Vector3 leftTop = inverseViewProjectionMatrix.MultiplyPoint(new Vector3(-1, 1, 1));</span><br><span class="line">Vector3 rightTop = inverseViewProjectionMatrix.MultiplyPoint(new Vector3(1, 1, 1));</span><br></pre></td></tr></table></figure>
+<p>这样我们就拥有了摄像机近裁面的四个角的世界坐标，同理可以通过这样的方法取得摄像机远裁面的四个角：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cam = GetComponent&lt;Camera&gt;();</span><br><span class="line">Matrix4x4 inverseViewProjectionMatrix = GL.GetGPUProjectionMatrix(cam.projectionMatrix, true);</span><br><span class="line">inverseViewProjectionMatrix *= cam.worldToCameraMatrix;</span><br><span class="line">inverseViewProjectionMatrix = inverseViewProjectionMatrix.inverse;</span><br><span class="line">Vector3 leftBottom = inverseViewProjectionMatrix.MultiplyPoint(new Vector3(-1, -1, 0));</span><br><span class="line">Vector3 rightBottom = inverseViewProjectionMatrix.MultiplyPoint(new Vector3(1, -1, 0));</span><br><span class="line">Vector3 leftTop = inverseViewProjectionMatrix.MultiplyPoint(new Vector3(-1, 1, 0));</span><br><span class="line">Vector3 rightTop = inverseViewProjectionMatrix.MultiplyPoint(new Vector3(1, 1, 0));</span><br></pre></td></tr></table></figure>
+<p>使用其他引擎或DirectX的朋友请注意，Unity3D是使用OpenGL标准的投影，所以我们这里需要经过GL.GetGPUProjectionMatrix函数获得确实的投影矩阵，并且远裁面深度为0，近裁面深度为1。</p>
+<p>以近裁面坐标作为线段起点，以近裁面坐标到远裁面坐标为线段方向，我们还需要确定线段的终点，显然，直接取远裁面是非常愚蠢的，假设摄像机会渲染1000米，而我们的显卡性能中等偏良好，大概可以承受64次采样的性能消耗，那每一步采样之间将会相隔1000 / 64 = 15.625米，也就是说在15米左右之内的物体变化都不会体积光产生任何影响，而且还会导致采样点出现在着色像素之后，产生严重的bug。</p>
+<p>因此，我们需要通过深度图，获得屏幕像素的深度并以此为线段的终点，同时限制线段最大长度，将线段长度设置到一个精度与视觉效果的相对平衡，确定终点的示例代码大致如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// _InverseViewProjectionMatrix UNITY_MATRIX_VP矩阵的逆矩阵</span><br><span class="line">// _SampleCount  采样率</span><br><span class="line">// _VolumetricIntensity 体积光强度</span><br><span class="line">// _MaxLength 最远采样距离</span><br><span class="line">float depth = tex2D(_CameraDepthTexture, i.uv).r;   //像素深度</span><br><span class="line">float worldPos = mul(_InverseViewProjectionMatrix, float3(i.uv * 2 - 1, depth));   //通过NDC坐标反推世界坐标</span><br><span class="line">float3 startPos = ...    //已经取得的世界空间近裁面坐标</span><br><span class="line">float3 direction = normalize(worldPos - startPos);    //线段归一化方向</span><br><span class="line">float m_length = min(_MaxLength, length(worldPos - startPos));      //获取线段的目标长度</span><br><span class="line">float perNodeLength = m_length / _SampleCount;          //每两个采样点之间的距离</span><br><span class="line">float3 currentPoint = startPos;    //记录当前采样点的位置</span><br><span class="line">float intensity = 0;</span><br><span class="line">for (int i = 0; i &lt; _SampleCount; ++i)&#123;    //进行固定次数的采样</span><br><span class="line">    currentPoint += direction * perNodeLength;   //更新当前采样点</span><br><span class="line">    intensity += GetShadow(currentPoint);      //获得当前坐标的阴影遮挡信息</span><br><span class="line">&#125;</span><br><span class="line">intensity *= _VolumetricIntensity * m_Length;      //对体积光的强度进行控制</span><br><span class="line">return intensity;</span><br></pre></td></tr></table></figure>
+<p>通过类似实现，可以获得一个简易的体积光效果，如何获得阴影采样的实现，在UnityCG.cginc和UnityShadowLibrary.cginc中有详细的实现，文件目录在(Unity Folder)/Editor/Data/CGIncludes/，其中平行光的阴影采样涉及到cascadeShadowMap的计算，需要对采样进行由近及远分成4层，有兴趣的朋友可以自行研究一下，这里不再赘述。</p>
+<h2 id="Point-Light"><a href="#Point-Light" class="headerlink" title="Point Light"></a>Point Light</h2><p>不同光源之间其实唯一的不同就是计算ray march线段的起点与终点的方法不同，point light的照射范围其实是一个球形，所以我们可以简单的直接在灯光的位置放一个球，然后通过直线与球交点的计算方法，然后其他诸如深度比较等操作，与Directional Light并无不同，示例代码大致如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// _Center 球心坐标</span><br><span class="line">// _Radius 球半径</span><br><span class="line">// _InverseViewProjectionMatrix UNITY_MATRIX_VP矩阵的逆矩阵</span><br><span class="line">// _SampleCount  采样率</span><br><span class="line">// _VolumetricIntensity 体积光强度</span><br><span class="line">float depth = tex2D(_CameraDepthTexture, i.uv).r;   //像素深度</span><br><span class="line">float pixelWorldPos= mul(_InverseViewProjectionMatrix, float3(i.uv * 2 - 1, depth));   //通过NDC坐标反推世界坐标</span><br><span class="line">float3 wpos = ...   //球表面位置</span><br><span class="line">float3 wNormal = ... //归一化的球表面法线</span><br><span class="line">float3 startPos = wpos;   //确定线段起始点</span><br><span class="line">float3 camToSurface = wpos - _WorldSpaceCameraPos;//从摄像机到表面的方向，即ray march的迭代方向</span><br><span class="line">float camToSurfaceLength = length(camToSurface);//摄像机到球表面的距离</span><br><span class="line">float3 surfaceToCenter = -wNormal * _Radius;   //球表面到球心</span><br><span class="line">float3 direction = normalize(camToSurface);    //线段方向</span><br><span class="line">float3 desiredEndPoint = startPos + dot(normalize(camToSurface), surfaceToCenter) * 2 * camToSurface;</span><br><span class="line">//这里通过简单的立体几何知识，求得射线与球的前后两个相交点</span><br><span class="line">float m_length = length(startPos - pixelWorldPos);   //从起点到屏幕像素点的距离</span><br><span class="line">m_length = min(m_length, length(startPos - desiredEndPoint));//获得最小线段距离</span><br><span class="line">float intensity = 0;</span><br><span class="line">float3 currentPoint = startPos;</span><br><span class="line">float perNodeLength = m_length / _SampleCount;          //每两个采样点之间的距离</span><br><span class="line">for(int i = 0; i &lt; _SampleCount; ++i)&#123;</span><br><span class="line">    currentPoint += direction * perNodeLength;     //更新当前采样点</span><br><span class="line">    intensity += GetShadow(currentPoint - _Center);  </span><br><span class="line">    //注意，point light使用cubemap作为shadowmap,因此我们需要传入球心到采样点的方向</span><br><span class="line">&#125;</span><br><span class="line">intensity *= _VolumetricIntensity * m_Length;      //对体积光的强度进行控制</span><br></pre></td></tr></table></figure>
+<h2 id="Spot-Light"><a href="#Spot-Light" class="headerlink" title="Spot Light"></a>Spot Light</h2><p>原理与点光源其实大致相似，只不过我们这里为了性(tou)能(lan)，就不在shader中判断角度，而是直接使用CommandBuffer渲染两次锥形mesh，然后通过两次渲染的深度的差别，计算线段的起点和终点，示例代码大致如下（注意，这段代码在背面深度已渲染到指定的RenderTarget之后，被渲染的像素应该在Mesh的正面）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// _InverseViewProjectionMatrix UNITY_MATRIX_VP矩阵的逆矩阵</span><br><span class="line">// _SampleCount  采样率</span><br><span class="line">// _VolumetricIntensity 体积光强度</span><br><span class="line">// _BackDepthTexture  光源mesh的背面深度</span><br><span class="line">float backDepth = tex2D(_BackDepthTexture, i.uv).r; //背面深度</span><br><span class="line">float backWorldPos= mul(_InverseViewProjectionMatrix, float3(i.uv * 2 - 1, backDepth ));   //通过NDC坐标反推世界坐标</span><br><span class="line">float depth = tex2D(_CameraDepthTexture, i.uv).r; //深度图像素深度</span><br><span class="line">float pixelWorldPos= mul(_InverseViewProjectionMatrix, float3(i.uv * 2 - 1, depth ));   //通过NDC坐标反推世界坐标</span><br><span class="line">float3 direction = normalize(backWorldPos - _WorldSpaceCameraPos);</span><br><span class="line">float3 startPos = wpos; // 起点位置即为Mesh的正面像素位置</span><br><span class="line">float m_Length = min(length(backWorldPos - startPos), length(pixelWorldPos - startPos)); //线段长度</span><br><span class="line">float intensity = 0;</span><br><span class="line">float3 currentPoint = startPos;</span><br><span class="line">float perNodeLength = m_length / _SampleCount;          //每两个采样点之间的距离</span><br><span class="line">for(int i = 0; i &lt; _SampleCount; ++i)&#123;</span><br><span class="line">    currentPoint += direction * perNodeLength;     //更新当前采样点</span><br><span class="line">    intensity += GetShadow(currentPoint);</span><br><span class="line">&#125;</span><br><span class="line">intensity *= _VolumetricIntensity * m_Length;      //对体积光的强度进行控制</span><br><span class="line">return intensity;</span><br></pre></td></tr></table></figure>
+<p>直接渲染两次mesh这个方法确实比较丑陋，不过我们两者相权取其轻，多一个drawcall一般来讲比在shader中进行复杂的运算更为节省性能，而且还要考虑到lighting cookie的使用，在许多次时代渲染中，场景地编常常使用cookie改变灯光形状，增加灯光真实度，因此我们必须保证GetShadow传入的值确实的存在于shadowmap中。</p>
+<h2 id="优化性能："><a href="#优化性能：" class="headerlink" title="优化性能："></a>优化性能：</h2><p>由于多次迭代，体积光的消耗实际非常高昂，即使是在性能强大的PC平台也是如此，因此我们可以考虑许多优化方法大幅度降低性能消耗，而降采样就是其中非常好的一种方法。我们将目标贴图的分辨率设置为摄像机Render Target的分辨率的一半，也就是直接将计算量缩小到了之前的1/4，但是降采样后的图像马赛克化严重，我们可以使用高斯模糊，将其通过正态分布的模糊采样放回到原分辨率的贴图中，降采样不仅不会降低画质，反而会给体积光带来一种朦胧感与意境。    <img src="/2019/03/01/Unity体积光/示例.webp" alt="示例">                        <center>降采样模糊后的太阳体积光效果</center></p>
+<h2 id="进一步提高质量："><a href="#进一步提高质量：" class="headerlink" title="进一步提高质量："></a>进一步提高质量：</h2><p>细心观察的朋友已经注意到，这个体积光虽然已经实现，但是极其生硬，单调，仿佛蒙了一层布一样，实在谈不上美感，原因很简单，空气中的雾气，尘埃并不是简单的发光，而是折射太阳光，因此我们需要考虑透光时光线强弱的变化。</p>
+<p>首先，既然是透射，那么当视线与太阳射入角度越小时，阳光应该越发强劲，这种算法称之为Mie Scattering，即通过视线与光源夹角计算强度值，有时会在次表面透射材质中使用到。加上Mie Scattering后效果为：</p>
+<p><img src="/2019/03/01/Unity体积光/优化.webp" alt="优化">                        <center><u>加上Mie Scattering后已经初步拥有了真实感</u></center></p>
+<p>大气的情况复杂多变，有时雾并不是静止不动而是在风的影响下有缓慢的飘动，但是若是使用3D贴图进行二次raymarch，将会导致性能消耗非常高昂，这是无论如何也无法接受的，因此我们这里使用一个比较Trick的方法，使用一张2D贴图在屏幕空间进行采样，影响体积光的强度。（Demo中这么使用确实没什么问题，但是有时场景复杂可能会穿帮）。</p>
+<p><img src="/2019/03/01/Unity体积光/优化2.webp" alt="优化2"></p>
+<p>水雾的密度大于空气，因此会缓慢下沉，由于我们的ray march全程使用统一的世界坐标，因此想要基于采样点的高度进行强度累计非常容易，这里就不赘述了，直接给出最终实现效果：</p>
+<p><img src="/2019/03/01/Unity体积光/优化3.webp" alt="优化3">                        <center><u>拥有了高度雾与扰动贴图后的效果有了较大的提升</u></center></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Wangguocong 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Wangguocong 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/专业/" rel="tag"># 专业</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/28/创建hexo博客/" rel="next" title="创建hexo博客">
+                <i class="fa fa-chevron-left"></i> 创建hexo博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+  
+   </div>
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/2.jpg" alt="Wangguocong">
+            
+              <p class="site-author-name" itemprop="name">Wangguocong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangguocong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/6072272096/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+	
+          
+          
+
+          
+          
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#体积光："><span class="nav-number">1.</span> <span class="nav-text">体积光：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Directional-Light："><span class="nav-number">1.1.</span> <span class="nav-text">Directional Light：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Point-Light"><span class="nav-number">1.2.</span> <span class="nav-text">Point Light</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spot-Light"><span class="nav-number">1.3.</span> <span class="nav-text">Spot Light</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化性能："><span class="nav-number">1.4.</span> <span class="nav-text">优化性能：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进一步提高质量："><span class="nav-number">1.5.</span> <span class="nav-text">进一步提高质量：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wangguocong</span>
+
+  
+</div>
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'kFDzUjHEhV5wo8WKMcXQGmB7-gzGzoHsz',
+        appKey: 'vPuL0oXJC12Vo7xj524tF3ng',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  	<!-- 页面点击小红心 -->
+	<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+
