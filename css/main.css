@@ -1943,7 +1943,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #c3ff9d;
+  background: #ffa6ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3256,7 +3256,7 @@ pre .javascript .function {
   background-image: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);
 }
 body {
-  background: url("https://source.unsplash.com/random/1600x800");
+  background: url("https://source.unsplash.com/random/1920x1080");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 50% 50%;
