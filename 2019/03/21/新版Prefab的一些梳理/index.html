@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="专业,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="欢迎 来到  王国聪的博客!  原文链接：https://zhuanlan.zhihu.com/p/53824013 前言Unity的Prefab相信大家一定很熟悉了，但是用起来那叫个又爱又恨，爱是因为它方便，恨是因为它不支持嵌套，经过大家的各种报怨，终于在Unity2018.3.0f2中迎来了功能支持~ 先说下Prefab都有哪些好处吧：  类似模版的概念，修改基本Prefab，所以实例都会相应">
+<meta name="keywords" content="专业">
+<meta property="og:type" content="article">
+<meta property="og:title" content="新版Prefab的一些梳理">
+<meta property="og:url" content="http://yoursite.com/2019/03/21/新版Prefab的一些梳理/index.html">
+<meta property="og:site_name" content="欢迎来到王国聪的博客">
+<meta property="og:description" content="欢迎 来到  王国聪的博客!  原文链接：https://zhuanlan.zhihu.com/p/53824013 前言Unity的Prefab相信大家一定很熟悉了，但是用起来那叫个又爱又恨，爱是因为它方便，恨是因为它不支持嵌套，经过大家的各种报怨，终于在Unity2018.3.0f2中迎来了功能支持~ 先说下Prefab都有哪些好处吧：  类似模版的概念，修改基本Prefab，所以实例都会相应">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://wangguocong.github.io/2019/03/21/新版Prefab的一些梳理/新版Prefab的一些梳理.jpg">
+<meta property="og:updated_time" content="2019-03-21T06:13:41.499Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="新版Prefab的一些梳理">
+<meta name="twitter:description" content="欢迎 来到  王国聪的博客!  原文链接：https://zhuanlan.zhihu.com/p/53824013 前言Unity的Prefab相信大家一定很熟悉了，但是用起来那叫个又爱又恨，爱是因为它方便，恨是因为它不支持嵌套，经过大家的各种报怨，终于在Unity2018.3.0f2中迎来了功能支持~ 先说下Prefab都有哪些好处吧：  类似模版的概念，修改基本Prefab，所以实例都会相应">
+<meta name="twitter:image" content="http://wangguocong.github.io/2019/03/21/新版Prefab的一些梳理/新版Prefab的一些梳理.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/21/新版Prefab的一些梳理/">
+
+
+
+
+
+  <title>新版Prefab的一些梳理 | 欢迎来到王国聪的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/images/3.jpg" alt="欢迎来到王国聪的博客">
+        </a>
+      </div>
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">欢迎来到王国聪的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">所有的为时已晚都是开始的最好时候</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/21/新版Prefab的一些梳理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王国聪">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="欢迎来到王国聪的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">新版Prefab的一些梳理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-21T11:29:02+08:00">
+                2019-03-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/unity/" itemprop="url" rel="index">
+                    <span itemprop="name">unity</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/unity/新版Prefab的一些梳理/" itemprop="url" rel="index">
+                    <span itemprop="name">新版Prefab的一些梳理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/21/新版Prefab的一些梳理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/21/新版Prefab的一些梳理/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="http://wangguocong.github.io/2019/03/21/新版Prefab的一些梳理/新版Prefab的一些梳理.jpg" rel="gallery_cjti8qtlw000qd8mdmi36i3us" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://wangguocong.github.io/2019/03/21/新版Prefab的一些梳理/新版Prefab的一些梳理.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <p>欢迎 来到  <a href="https://wangguocong.github.io/archives/" target="_blank" rel="noopener">王国聪</a>的博客! </p>
+<p>原文链接：<a href="https://zhuanlan.zhihu.com/p/53824013" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/53824013</a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h2><p>Unity的Prefab相信大家一定很熟悉了，但是用起来那叫个又爱又恨，爱是因为它方便，恨是因为它不支持嵌套，经过大家的各种报怨，终于在Unity2018.3.0f2中迎来了功能支持~</p>
+<p>先说下Prefab都有哪些好处吧：</p>
+<ul>
+<li>类似模版的概念，修改基本Prefab，所以实例都会相应的更新改变。（这也是原本Prefab就有的功能，也是最基本的功能）</li>
+<li>嵌套，可多级嵌套，在角色、UI、特效等上都有很大的发挥空间。</li>
+<li>变体，在做同一类型资源（有不同外观或属性）但是又希望每一个都是个Prefab时比较有用。</li>
+</ul>
+<p>好处了解完后，接下来就详细的从头到尾来捋一捋。</p>
+<hr>
+
+
+
+<p><strong>Prefab</strong></p>
+<p>首先要说下如何生成Prefab，以一个机器人Robot（利用一些基本Cube拼出一个机器人）为例：</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab1.jpg" alt="prefab1"></p>
+<center>利用一些Cube拼出的机器人</center>
+
+
+
+<p><strong>如何生成Prefab？</strong></p>
+<ol>
+<li><p>首先在Hierarchy面板中创建出我们的机器人，并且把所有的部件都放在一个叫Robot的空物体下面。（因为我们是要把整个机器人做为Prefab来保存，所以需要把它们组合到一个对象下面来管理）</p>
+</li>
+<li><p>在Hierarchy面板中，将Robot拖到Project面板内（具体拖到哪个文件夹可自由决定），即可在相应的文件夹内生成Robot的Prefab。</p>
+</li>
+</ol>
+<blockquote>
+<p>在Hierarchy面板中，对象名称左边有个小图标，在普通情况下它是一个灰白色的小方块，而当它是个Prefab实例时，则是一个蓝色的小方块，这是在Hierarchy面板区分物体是否为Prefab的一个直观的方式。<br>在Project面板中，Prefab是以.prefab为后缀命名的。</p>
+</blockquote>
+<p><strong>如何编缉Prefab？</strong></p>
+<p>有多种方式可以对Prefab进行编缉，这里编缉的意思是指对Prefab本身做修改，以使修改自动更新到所有的实例中。</p>
+<ul>
+<li>第一种方式是在Prefab Mode中进行编缉。</li>
+</ul>
+<blockquote>
+<p>Prefab Mode是新版中的新术语，意思就是进入一个独立的空间中，在其中对Prefab进行修改编缉。</p>
+</blockquote>
+<ul>
+<li>第二种方式是在外面进行，也就是普通界面下进行修改编缉。</li>
+</ul>
+<hr>
+
+
+
+<h2 id="Prefab"><a href="#Prefab" class="headerlink" title="Prefab"></a><strong>Prefab</strong></h2><p><strong>Prefab Mode</strong></p>
+<p>要在Prefab Mode中编缉，首先就要进入到此模式下，有以下几种进入方式：</p>
+<ul>
+<li>在Hierarchy面板中，Prefab对象的最右侧有个向右的小箭头，通过点击此箭头即可进入Prefab Mode中。</li>
+</ul>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab2.jpg" alt="prefab2"></p>
+<center>从Hierarchy进入Prefab Mode</center>
+
+
+
+<ul>
+<li>同样是在Hierarchy面板选中Prefab后，在Inspector面板最上方会显示”Open”字样的按钮，点击Open即可进入。</li>
+</ul>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab3.jpg" alt="prefab3"></p>
+<center>从Hierarchy选中对象并从Inspector面板中进入Prefab Mode</center>
+
+
+
+<ul>
+<li>在Project面板中，选中Prefab后，在Inspector面板中会显示”Open Prefab”字样的按钮，点击即可进入。</li>
+</ul>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab4.jpg" alt="prefab4"></p>
+<center>从Project进入Prefab Mode</center>
+
+<p>进入后呈现如下所示：</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab5.jpg" alt="prefab5"></p>
+<center>Prefab Mode</center>
+
+
+
+<ol>
+<li>一级一级的退出Prefab Mode，每点一次回退一级。</li>
+<li>点击标签可以回退到指定的上一级，多级嵌套时可以方便的回到某个层级中。</li>
+<li>Auto Save，自动保存，默认勾选，在Prefab Mode中所做的任何修改都会自动进行保存。如果电脑性能不佳，有出现卡顿感时，可以选择去掉勾选，在需要时主动点击Save按钮（当去掉勾选时，在其左边会出现Save按钮）。另外，当去掉勾选，同时也做了一些修改，但是在没有点Save后，直接选择退出Prefab Mode，此时会弹出一个提示对话框，需要选择是否对修改进行保存。还是相当贴心的。。。</li>
+</ol>
+<p><strong>Editing Environment</strong></p>
+<p>编缉环境，什么意思呢，就是说当我们进入Prefab Mode时，默认使用的都是一个只有天空盒的空场景，那如果我们想要换个场景怎么办呢？</p>
+<p>通过Edit&gt;Project Settings&gt;Editor打开工程设置界面：</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab6.jpg" alt="prefab6"></p>
+<center>设置Editing Environments</center>
+
+<p>在此设置界面中有两个Environment可供设置：</p>
+<p>Regular Environment：常规Prefab的编缉环境，常规是什么意思呢，其实就是非UI类的都属于常规类，也就是说凡是Prefab父级是Transform的都会用这个环境。</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab8.png" alt="prefab8"></p>
+<center>常规类用Regular Environment</center>
+
+<p>UI Environment：UI类的Prefab编缉环境，凡是Prefab父级是RectTransform的都会用这个环境。</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab8.jpg" alt="prefab8"></p>
+<center>UI类用UI Environment</center>
+
+<p><strong>实例</strong></p>
+<p>现在把Robot Prefab从Project中拖入Hierarchy中，也就表示在场景中生成了一个Robot的实例，然后再拖进来一个，移动一下它的位置，至此，我们在场景中有了两个Robot的实例。</p>
+<p>大部分情况下，我们都希望生成出来的实例是有些稍稍不同的，比如某个Robot大一点，某个Robot又高一些，甚至某些Robot有些额外的部件等等。</p>
+<p>总体而言呢，会有以下几种类型的不同：</p>
+<ul>
+<li>属性值的不同</li>
+<li>组件的新增与删除</li>
+<li>子物体的添加</li>
+</ul>
+<p>注意，除此以外的操作会要求进入到PrefabMode模式下更改，说明在实例上不支持，必须修改Prefab本体才行。比如子级排序变更、子对象的删除等操作。</p>
+<blockquote>
+<p>删除子对象的操作可以采用在Inspector面板中禁用显示来变相达到需求。</p>
+</blockquote>
+<p>当实例上有修改时，在Inspector界面中会以一个蓝色条状进行标示，以示区别。</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab9.jpg" alt="prefab9"></p>
+<center>Prefab实例修改后的标记</center>
+
+<hr>
+<h2 id="覆盖与恢复"><a href="#覆盖与恢复" class="headerlink" title="覆盖与恢复"></a><strong>覆盖与恢复</strong></h2><p><strong>概念</strong></p>
+<p>覆盖与恢复操作是Prefab实例中很重要的两个概念：</p>
+<ul>
+<li>Overrides（覆盖）</li>
+</ul>
+<p>将实例中所做的修改覆盖应用到原始Prefab中去，此操作会更新所有的实例。</p>
+<p>比如场景中有1000个机器人实例，当把其中一个改成2倍大，然后将其覆盖，此时场景中所有的实例都会变成2倍大。（前提是另外那999个机器人的缩放值没有修改过）</p>
+<ul>
+<li>Revert（恢复）</li>
+</ul>
+<p>将某个实例上的修改移除，并恢复到原始Prefab上的状态。</p>
+<p><strong>覆盖与恢复（方法一）</strong></p>
+<p>实现覆盖与恢复的方法很多，先说第一种，当我们选中实例时会在Inspector面板顶部显示三个按钮：</p>
+<ul>
+<li>Open：进入Prefab Mode</li>
+<li>Select：在Project面板中选中此Prefab</li>
+<li>Overrides：覆盖或者恢复实例上的修改</li>
+</ul>
+<p>其中覆盖与恢复操作就在Overrides中，默认情况下点击Overrides时，由于实例上没有任何修改，所以不会有覆盖与恢复相关的按钮，如下所示：</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab10.jpg" alt="prefab10"></p>
+<center>实例上的基本操作</center>
+
+<blockquote>
+<p>对象的Position与Rotation属性有修改时，不会算作Overrides，也就是说我们在实例上不管怎么修改位置与旋转都不会产生覆盖操作，同理，当我们修改了Prefab自身的位置与旋转值时也不会影响到任何实例。<br>注意Scale值会被收集到Overrides中。</p>
+</blockquote>
+<p>当实例上产生可覆盖的修改时，面板将显示如下：</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab11.jpg" alt="prefab11"></p>
+<ol>
+<li>Revert All：恢复实例的所有修改到Prefab原始状态，也就是移除所有修改，回复到默认状态。</li>
+<li>Apply All：将此实例上的所有修改都覆盖到Prefab本身，此操作会影响到所有的实例。</li>
+<li>当一个实例有修改时，会在此处列出每个修改块，通过点击可查看具体的修改信息。</li>
+<li>查看每个修改块的具体修改内容，如果是新增的就会单独以Added的形式展示，如果是原先Prefab就有的，则会显示出两者的对比，便于参照，可以说是非常良心了。同时在此小面板的右上角有Revert和Apply两个按钮，与1、2大同小异，只不过是单独针对选中的对象进行操作的。</li>
+</ol>
+<p><strong>覆盖与恢复（方法二 ）</strong></p>
+<p>第二种方法，还是在Inspector面板中，在修改属性的上面点击右键，从而会弹出相关的命令，如下图所示：</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab12.jpg" alt="prefab12"></p>
+<center>在Component上覆盖与恢复Prefab</center>
+
+<p>Apply to Prefab “XXX”，表示将此条修改覆盖到原始Prefab中。</p>
+<p>Revert表示恢复此条修改。</p>
+<blockquote>
+<p>添加与删除组件也可以用此方法来弹出操作命令，这里不再详细说明。<br>此种方式在修改了单独的属性并想快速覆盖与恢复时比较常用。</p>
+</blockquote>
+<p><strong>覆盖与恢复（方法三 ）</strong></p>
+<p>第三种方法，这回是在Hierarchy面板中，在对象上点击右键，如下图所示：</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab13.jpg" alt="prefab13"></p>
+<blockquote>
+<p>注意，此种方法只能对新增的子物体进行覆盖与恢复，无法针对组件以及对象上的属性修改做覆盖与恢复操作。</p>
+</blockquote>
+<p>这三种方法，各有各的针对情况，第一种方法最全面，但是相对要小心处理，第二方法针对组件上的属性与添加和删除组件很好用，第三种方法主要针对添加子物体时的操作。所以三种方法相互配合才是提高操作效率的最佳手段。</p>
+<hr>
+
+
+
+<h2 id="嵌套Prefab"><a href="#嵌套Prefab" class="headerlink" title="嵌套Prefab"></a><strong>嵌套Prefab</strong></h2><p>新版中最重要的功能就是支持嵌套了，实际操作起来也是非常简单，重要的一些概念在上面都已经讨论过了。</p>
+<p>如下图中，我们将Robot的各个部件都单独生成一个Prefab并且放置于Robot内，这就形成了嵌套Prefab。</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab14.jpg" alt="prefab14"></p>
+<center>Prefab中的嵌套Prefab</center>
+
+<p>嵌套的Prefab的本身就是Prefab，把它当作常规Prefab就行了，只不过在新版本中，可以将它放在其它Prefab内，并同时保留自身的引用关系，当本体更新时它也会自动更新，这在以前的版本中是做不到的。</p>
+<p>同时也支持多级嵌套，即Prefab中有子Prefab，子Prefab中又可有自己的子Prefab。。。以此类推，具体不清楚有没有嵌套层级数量限制，理论上来讲应该是无限的。</p>
+<hr>
+
+<h2 id="Prefab变体"><a href="#Prefab变体" class="headerlink" title="Prefab变体"></a><strong>Prefab变体</strong></h2><p>此概念也是新版本中的功能，具体是什么意思呢？</p>
+<p>试想一下，假如我们的Robot是一个怪物，那么我们现在想要多个怪物，但是它们外观又不大一样，并且各自的属性也不太相同，同时呢，它们又都是属于Robot类，也就是说，我们要生产一批类型差不多但稍有细微差别的一组Robot。</p>
+<p>按照以前的做法，我们肯定是生成多个Prefab，各个Prefab不相关，不同的外观不同的属性，一旦想改变所有的属性时就必须要去一个个的修改，这是及其不方便的。</p>
+<p>那么Prefab的变体就是为了解决此类问题而生的。</p>
+<p>利用Prefab变体我们就可以快速生成多个Prefab，同时我们可以给予它们不同的外观与属性，但是它们又共同继承自原始的Prefab，当我需要整体都改变时只需调整最原始的Prefab即可。</p>
+<p><strong>如何创建Prefab变体</strong></p>
+<p>在Project面板中，在原始Prefab上点击右键，从中依次选择Creat&gt;Prefab Variant即可。</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab15.jpg" alt="prefab15"></p>
+<center>创建Prefab变体菜单</center>
+
+<p>然后在原始Prefab边上就会出现一个变体资源，注意图标样式与普通Prefab是不同的。</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab16.jpg" alt="prefab16"></p>
+<center>生成Prefab变体</center>
+
+<p>这个时候就可以像修改普通Prefab一样的去修改变体Prefab了，但是有一点千万要注意：</p>
+<p>在变体的Prefab Mode中，选中Prefab最上层时的Overides下覆盖按钮变成了<strong>Apply All to Base</strong>，此命令会使用变体的修改去覆盖原始Prefab，请千万明确此操作确实是你想要的再去点。</p>
+<p>通常情景下，变体是不会去覆盖本体的，否则就失去了变体的意义了。</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab17.jpg" alt="prefab17"></p>
+<center>变体上的覆盖到基类</center>
+
+<p>下图简单展示了一个变体与本体的效果差别：</p>
+<p>变体比本体中多了脚的部件，同时头部的属性值也发生了变化。</p>
+<p>此时当我们去修改本体属性时，变体也会自动更新。这就是变体的核心方便之处。</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab18.jpg" alt="prefab18"></p>
+<center>变体与本体</center>
+
+
+
+<hr>
+
+
+
+<h2 id="Prefab解散"><a href="#Prefab解散" class="headerlink" title="Prefab解散"></a><strong>Prefab解散</strong></h2><p>同样，新功能，其实Prefab确实很像一个组，组内包含各式各样的部件与组件，那既然是一个组，那就有解散组的可能性。</p>
+<p>所以官方也是考虑到了这一点，也提供了相应的功能支持。</p>
+<p><strong>如何解散</strong></p>
+<ol>
+<li><p>首先解散操作只能在实例上进行操作，也就是只能在Hierarchy中进行。所以先在Hierarchy中选中Prefab实例。</p>
+</li>
+<li><p>然后右键，从中选择Unpack Prefab或者Unpack Prefab Completely。</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab19.jpg" alt="prefab19"></p>
+</li>
+</ol>
+<center>Prefab解散</center>
+
+<ul>
+<li><p>Unpack Prefab：解散Prefab与本体的关联，此时在Hierarchy面板中父级会变成灰色图标，表示不再是一个实例。在Inspector面板中Prefab相关的操作也会消失。但是子级的Prefab属性还是存在的。（如果子级有Prefab的话）</p>
+</li>
+<li><p>UnPack Prefab Completely：完全解散Prefab，此时不管是父级还是多深的子级全部失去与各自Prefab的关联，也就是纯纯粹变成了场景中的一组对象而已。</p>
+</li>
+</ul>
+<blockquote>
+<p>在对Prefab变体实例Unpack Prefab后，它会首先解散成普通Prefab（此时与原始Prefab会进行关联）。当再次执行Unpack Prefab后才会失去与本体Prefab的关联。</p>
+</blockquote>
+<hr>
+
+
+
+<h2 id="运行时覆盖"><a href="#运行时覆盖" class="headerlink" title="运行时覆盖"></a><strong>运行时覆盖</strong></h2><p>新版本同时也带来了一些新的问题，除了API需要更新以外，运行时修改并覆盖的功能也没了，在之前运行时选中Prefab实例，在Inspector面板是有Apply按钮来覆盖修改的，但是新版本中就完全消失了，这个功能对于美术特效人员来说非常重要，可以在运行时边调效果边保存，虽说也可以手动拖到Project面板中来覆盖保存，但未免总是有些不方便，于是抛砖引玉，给出下面这段运行时保存的代码：</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab20.jpg" alt="prefab20"></p>
+<center>运行时保存代码</center>
+
+<p>工具界面最终如下：</p>
+<p><img src="/2019/03/21/新版Prefab的一些梳理/prefab21.jpg" alt="prefab21"></p>
+<center>工具界面</center>
+
+<p>大概思路：</p>
+<p>设想利用EditorWindow做成一个小工具窗，其中有一个按钮，在运行时修改完特效后选中此特效的父级直接点击按钮即可。</p>
+<p>由于新版本中运行时Prefab实例会丢失与原始Prefab的关联（目测是这样），所以只能通过名称在相应的目录内来查找，查找到后进行替换，否则提示找不到。</p>
+<p>此工具只是抛砖引玉，通用性太差，如果大家有更好更方便的方法请留言回复。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="王国聪 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="王国聪 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/专业/" rel="tag"># 专业</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/20/什么是MVVM框架/" rel="next" title="什么是MVVM框架">
+                <i class="fa fa-chevron-left"></i> 什么是MVVM框架
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+  
+   </div>
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/2.jpg" alt="王国聪">
+            
+              <p class="site-author-name" itemprop="name">王国聪</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangguocong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangzhezhijian" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/6072272096/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wa.ng1846" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+	
+          
+          
+
+          
+          
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prefab"><span class="nav-number">2.</span> <span class="nav-text">Prefab</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖与恢复"><span class="nav-number">3.</span> <span class="nav-text">覆盖与恢复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#嵌套Prefab"><span class="nav-number">4.</span> <span class="nav-text">嵌套Prefab</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prefab变体"><span class="nav-number">5.</span> <span class="nav-text">Prefab变体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prefab解散"><span class="nav-number">6.</span> <span class="nav-text">Prefab解散</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行时覆盖"><span class="nav-number">7.</span> <span class="nav-text">运行时覆盖</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王国聪</span>
+
+  
+</div>
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'kFDzUjHEhV5wo8WKMcXQGmB7-gzGzoHsz',
+        appKey: 'vPuL0oXJC12Vo7xj524tF3ng',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  	<!-- 页面点击小红心 -->
+	<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+
