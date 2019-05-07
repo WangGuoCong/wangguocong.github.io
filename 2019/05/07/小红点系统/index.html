@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="欢迎 来到 我 王国聪的博客!  Quick Start看这段代码:123$ Debug.Log(sizeof(float)); //4字节$ Debug.Log(sizeof(uint));  //4字节$ Debug.Log(float.MaxValue &amp;gt; uint.MaxValue); //true 通过上面代码，我们可以发现float和uint（为了取最大值，这里就用无符号整形）都">
+<meta name="description" content="欢迎 来到  王国聪的博客!  小红点系统模块预览图： 内部小红点-图1:  外部父节点-图2：  图1为子层，图2为主层，当子层拥有信息时，往主层通知。一般的思路是：子层绑定主层。当消息状态来了，通知主层，主层亮起红点。这就意味着，我们要把这个系统写成树形结构。这样我们就会在主层和子层都要写小红点 但是我们使用事件系统和单例模式改造一番。 用一个小红点管理器类（单例）来做监听器，注册事件，调用事">
 <meta name="keywords" content="专业">
 <meta property="og:type" content="article">
-<meta property="og:title" content="被坑了的浮点数的精度">
-<meta property="og:url" content="http://yoursite.com/2019/02/25/hello-world/index.html">
+<meta property="og:title" content="小红点系统">
+<meta property="og:url" content="http://yoursite.com/2019/05/07/小红点系统/index.html">
 <meta property="og:site_name" content="欢迎来到王国聪的博客">
-<meta property="og:description" content="欢迎 来到 我 王国聪的博客!  Quick Start看这段代码:123$ Debug.Log(sizeof(float)); //4字节$ Debug.Log(sizeof(uint));  //4字节$ Debug.Log(float.MaxValue &amp;gt; uint.MaxValue); //true 通过上面代码，我们可以发现float和uint（为了取最大值，这里就用无符号整形）都">
+<meta property="og:description" content="欢迎 来到  王国聪的博客!  小红点系统模块预览图： 内部小红点-图1:  外部父节点-图2：  图1为子层，图2为主层，当子层拥有信息时，往主层通知。一般的思路是：子层绑定主层。当消息状态来了，通知主层，主层亮起红点。这就意味着，我们要把这个系统写成树形结构。这样我们就会在主层和子层都要写小红点 但是我们使用事件系统和单例模式改造一番。 用一个小红点管理器类（单例）来做监听器，注册事件，调用事">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-04T09:20:21.051Z">
+<meta property="og:image" content="http://wangguocong.github.io/2019/05/07/小红点系统/小红点系统.png">
+<meta property="og:updated_time" content="2019-05-07T03:17:35.672Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="被坑了的浮点数的精度">
-<meta name="twitter:description" content="欢迎 来到 我 王国聪的博客!  Quick Start看这段代码:123$ Debug.Log(sizeof(float)); //4字节$ Debug.Log(sizeof(uint));  //4字节$ Debug.Log(float.MaxValue &amp;gt; uint.MaxValue); //true 通过上面代码，我们可以发现float和uint（为了取最大值，这里就用无符号整形）都">
+<meta name="twitter:title" content="小红点系统">
+<meta name="twitter:description" content="欢迎 来到  王国聪的博客!  小红点系统模块预览图： 内部小红点-图1:  外部父节点-图2：  图1为子层，图2为主层，当子层拥有信息时，往主层通知。一般的思路是：子层绑定主层。当消息状态来了，通知主层，主层亮起红点。这就意味着，我们要把这个系统写成树形结构。这样我们就会在主层和子层都要写小红点 但是我们使用事件系统和单例模式改造一番。 用一个小红点管理器类（单例）来做监听器，注册事件，调用事">
+<meta name="twitter:image" content="http://wangguocong.github.io/2019/05/07/小红点系统/小红点系统.png">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/25/hello-world/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/07/小红点系统/">
 
 
 
 
 
-  <title>被坑了的浮点数的精度 | 欢迎来到王国聪的博客</title>
+  <title>小红点系统 | 欢迎来到王国聪的博客</title>
   
 
 
@@ -269,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/25/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/07/小红点系统/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王国聪">
@@ -286,7 +288,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">被坑了的浮点数的精度</h1>
+          <h1 class="post-title" itemprop="name headline">小红点系统</h1>
         
 
         <div class="post-meta">
@@ -298,8 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-25T11:19:08+08:00">
-                2019-02-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-07T09:56:58+08:00">
+                2019-05-07
               </time>
             
 
@@ -332,8 +334,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/unity/浮点数计算问题/" itemprop="url" rel="index">
-                    <span itemprop="name">浮点数计算问题</span>
+                  <a href="/categories/unity/小红点系统/" itemprop="url" rel="index">
+                    <span itemprop="name">小红点系统</span>
                   </a>
                 </span>
 
@@ -350,8 +352,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/02/25/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/25/hello-world/" itemprop="commentCount"></span>
+                <a href="/2019/05/07/小红点系统/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/07/小红点系统/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -373,7 +375,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  903
+                  606
                 </span>
               
 
@@ -389,7 +391,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  2
                 </span>
               
             </div>
@@ -408,20 +410,46 @@
 
       
       
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="http://wangguocong.github.io/2019/05/07/小红点系统/小红点系统.png" rel="gallery_cjvd84q4100066smd3i6i9yl1" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://wangguocong.github.io/2019/05/07/小红点系统/小红点系统.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
 
       
-        <p>欢迎 来到 我 <a href="https://wangguocong.github.io/archives/" target="_blank" rel="noopener">王国聪</a>的博客! </p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="看这段代码"><a href="#看这段代码" class="headerlink" title="看这段代码:"></a>看这段代码:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ Debug.Log(sizeof(<span class="built_in">float</span>)); //4字节</span><br><span class="line">$ Debug.Log(sizeof(uint));  //4字节</span><br><span class="line">$ Debug.Log(float.MaxValue &gt; uint.MaxValue); //<span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<p>通过上面代码，我们可以发现float和uint（为了取最大值，这里就用无符号整形）都是4字节，那么为什么float的取值范围要比int大呢？</p>
-<h3 id="继续再看一段代码"><a href="#继续再看一段代码" class="headerlink" title="继续再看一段代码"></a>继续再看一段代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Debug.LogFormat(<span class="string">"&#123;0&#125;至&#123;1&#125;"</span>, float.MinValue, float.MaxValue);//取值范围: -3.402823E+38至3.402823E+38</span><br><span class="line">Debug.LogFormat(<span class="string">"&#123;0&#125;至&#123;1&#125;"</span>, int.MinValue, int.MaxValue);//取值范围: -2147483648至2147483647</span><br><span class="line">Debug.LogFormat(<span class="string">"&#123;0&#125;至&#123;1&#125;"</span>, uint.MinValue, uint.MaxValue);//取值范围: 0至4294967295</span><br></pre></td></tr></table></figure>
-<p>如果有人不知道 取值范围 -3.402823E+38-3.402823E+38 其中的E+38的含义我这里解释一下<br>-3.402823E+38 等价于 -3.402823*10^38（10的38次方）取值范围-3.402823E+38 – 3.402823E+38 也就等价于<br>-340282300000000000000000000000000000000 至 340282300000000000000000000000000000000</p>
-<p>看到这里大家应该心里有点明白了吧？float的最大值340282300000000000000000000000000000000完全秒杀int的最大值4294967295</p>
-<p>在回到文章开头的代码，float占4字节int也占4字节 ，此刻你的内心是否有个疑问？为什么差这么多？<br>首先咱先看看int 4字节 （1个字节8位，4字节就是32位）也就表示它由32位保存 也就是它的最大值是 2^32（2的32次方）=4294967296（大家可以拿起计算器算一下是不是这个值）<br>同样的float 4字节 也表示它由32位保存那么凭什么它能存3.402823E+38这么大的数呢？机器不会骗人，原因就是它不是按int这么存数据的。比如一个float 数据<br>1024.1024 等价于 1.0241024 * 10^3  （3表示指数，1.0241024表示有效数字）float其实只是把符号、指数、有效数字3部分保存，真正在运算的时候是根据指数在移位操作。<br>float把 32位分成了3部分，1位（符号位）8位（指数位）23位（有效数字）那么 1+ 8 + 23 等于32吧，所以float的32位是这么来的。23位有效数字就表示float真正能存的精度，23位小数部分是反被储存的部分，所以它是有24位存储的，2^24（2的24次方）=16777216 </p>
-<h3 id="请大家记住这个数值，下面我们在做个试验："><a href="#请大家记住这个数值，下面我们在做个试验：" class="headerlink" title="请大家记住这个数值，下面我们在做个试验："></a>请大家记住这个数值，下面我们在做个试验：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">float</span> a = 16777216f;</span><br><span class="line"><span class="built_in">float</span> b = a + 0.01f;</span><br><span class="line">Debug.Log(a);//1.677722E+07</span><br><span class="line">Debug.Log(b);//1.677722E+07</span><br></pre></td></tr></table></figure>
-<p>读完代码，如果你的程序中有一个float的数值运算后的小数部分，如果超过16777216.xxx那么很抱歉它们的结果是一致的。<br>float我们介绍完了，double的原理和float差不多，double占8字节，1位符号位+11位指数+52位有效数字 = 64位。double的有效2^53（2的53次方）=9007199254740992，超过9007199254740992.xxx那么很抱歉它们的结果是一致的。</p>
-<h3 id="double-示例："><a href="#double-示例：" class="headerlink" title="double 示例："></a>double 示例：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">double a = 9007199254740992f;</span><br><span class="line">double b = a + 0.01f;</span><br><span class="line">Debug.Log(a);//9.00719925474099E+15</span><br><span class="line">Debug.Log(b);//9.00719925474099E+15</span><br></pre></td></tr></table></figure>
-<p>而且浮点数计算结果不同的CPU计算出来可能是不一致的，像帧同步那种游戏基本应该告别float和double了。<br>最后我们在聊一下定点数，应对解决精度问题，c#提供了定点数decimal关键字。可以看到它是由16个字节组成也就是64位，内存大小相当于4个float或者2个double 取值范围也很高。<br>只要数据在10进制28-29位之间，小数点在中间任意位置均可。数据运算就不会像float和double一样被和谐了。所以说如果需要准确精度的小数计算就一定要使用定点数。</p>
+        <p>欢迎 来到  <a href="https://wangguocong.github.io/archives/" target="_blank" rel="noopener">王国聪</a>的博客! </p>
+<h1 id="小红点系统"><a href="#小红点系统" class="headerlink" title="小红点系统"></a><center>小红点系统</center></h1><p>模块预览图：</p>
+<p>内部小红点-图1:</p>
+<p><img src="/2019/05/07/小红点系统/模块预览图.png" alt="模块预览图"></p>
+<p>外部父节点-图2：</p>
+<p><img src="/2019/05/07/小红点系统/父节点小红点.png" alt="父节点小红点"></p>
+<p>图1为子层，图2为主层，当子层拥有信息时，往主层通知。<br>一般的思路是：子层绑定主层。当消息状态来了，通知主层，主层亮起红点。这就意味着，我们要把这个系统写成树形结构。这样我们就会在主层和子层都要写小红点</p>
+<p>但是我们使用事件系统和单例模式改造一番。</p>
+<p>用一个小红点管理器类（单例）来做监听器，注册事件，调用事件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">private class Listener//这儿是监听</span><br><span class="line">    &#123;</span><br><span class="line">        public System.Object m_kReceiver = null;</span><br><span class="line">        public string m_kEventKey = null;</span><br><span class="line">        public UnityEngine.GameObject m_kGameObject = null;</span><br><span class="line">        public int m_iRedPointType = 0;            //模块类型</span><br><span class="line">        public string m_kParamString = string.Empty; //参数1</span><br><span class="line">        public int m_iParamsInt = 0;            //参数2</span><br><span class="line">        public float m_fNextUpdateTime = -1.0f;        //下次触发的时间间隔，负数表示不触发</span><br><span class="line"></span><br><span class="line">        public override bool Equals(object obj)</span><br><span class="line">        &#123;</span><br><span class="line">            Listener tmpObj = (Listener) obj;</span><br><span class="line">            return m_kEventKey.Equals(tmpObj.m_kEventKey) &amp;&amp; m_kGameObject == tmpObj.m_kGameObject;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public override int GetHashCode()</span><br><span class="line">        &#123;</span><br><span class="line">            return m_kGameObject.GetHashCode();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>但是游戏中一般模块众多，如果直接通用全部注册在类里（随着游戏迭代会冗余），会导致调用时越来越缓慢。</p>
+<p>​    我们可以用一个类定义一个最基本的小红点属性，方法，然后每一个模块小红点单独继承它，然后调用时，通过在父类里定义的每一个子类的枚举类型，直接调用到对应的类型里面去，避免了调用到其他模块去，尽可能解耦合。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public enum RedPointType</span><br><span class="line">&#123;</span><br><span class="line">    RP_NONE = 0,</span><br><span class="line">    RP_SPECIAL,             //特殊的模块，解决多模块查找的问题</span><br><span class="line">    RP_MAIL,                //邮件</span><br><span class="line">    RP_FRIEND,              //好友</span><br><span class="line">    RP_GETNEWWARRIOR,       //抽奖</span><br><span class="line">    RP_TRANSCRIPT_AWARD,    //副本宝箱</span><br><span class="line">    RP_WARRIOR,             //英雄</span><br><span class="line">    RP_CHANLLENGE,          //挑战</span><br><span class="line">    RP_MAINCHAR,            //主角</span><br><span class="line">    RP_COMPITITIVE,         //竞技</span><br><span class="line">    RP_BACKPACK,            //背包</span><br><span class="line">    RP_LEAGUE,              //公会</span><br><span class="line">    RP_NEWWARRIOR,          //新英雄</span><br><span class="line">    RP_CHAT,                //聊天</span><br><span class="line">    RP_WELFAREACTIVITY,     //福利</span><br><span class="line">    RP_WingSystem,          //羽翼系统</span><br><span class="line">    RP_Pet,                 //宠物</span><br><span class="line">    RP_Partner,             //伙伴</span><br><span class="line">    RP_AcheiveTitle,        //成就和称号</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义成类似的框架：</p>
+<p><img src="/2019/05/07/小红点系统/框架.png" alt="框架"></p>
+<p>在使用时，就可以在父节点和子节点注册一个单独事件：对应的函数，对应的小红点类型，对应的小红点，然后在小红点触发的地方调用该事件。</p>
+<p><img src="/2019/05/07/小红点系统/子节点注册小红点.png" alt="子节点注册小红点"></p>
+<center>子节点注册单一的事件，类型，调用的方法</center>
 
+<p><img src="/2019/05/07/小红点系统/父节点注册小红点.png" alt="父节点注册小红点"></p>
+<center>在外层父节点将所有子节点的事件全部注册</center>
+
+<p><img src="/2019/05/07/小红点系统/调用.png" alt="调用"></p>
+<center>在资产刷新时或者触发小红点时调用对应事件</center>
       
     </div>
     
@@ -480,15 +508,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/05/06/游戏中的事件系统/" rel="next" title="游戏中的事件系统——观察者模式">
+                <i class="fa fa-chevron-left"></i> 游戏中的事件系统——观察者模式
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/27/post-name/" rel="prev" title="数据结构常见的八大排序算法（详细整理）">
-                数据结构常见的八大排序算法（详细整理） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -656,7 +684,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#看这段代码"><span class="nav-number">1.1.</span> <span class="nav-text">看这段代码:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继续再看一段代码"><span class="nav-number">1.2.</span> <span class="nav-text">继续再看一段代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#请大家记住这个数值，下面我们在做个试验："><span class="nav-number">1.3.</span> <span class="nav-text">请大家记住这个数值，下面我们在做个试验：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#double-示例："><span class="nav-number">1.4.</span> <span class="nav-text">double 示例：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#小红点系统"><span class="nav-number">1.</span> <span class="nav-text">小红点系统</span></a></li></ol></div>
             
 
           </div>
