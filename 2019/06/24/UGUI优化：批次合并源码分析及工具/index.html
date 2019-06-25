@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Unity，热爱生活的程序猿">
+  <meta name="keywords" content="专业,">
 
 
 
@@ -86,30 +86,20 @@
 
 
 
-<meta name="description" content="title: UGUI优化：批次合并源码分析及工具categories:    这里写的分类会自动汇集到 categories 页面上，分类可以多级 unitytags: 这里写的标签会自动汇集到 tags 页面上 专业    UGUI优化：批次合并源码分析及工具 欢迎 来到  王国聪的博客!    本文引用于腾讯游戏学院 原文地址：https://gameinstitute.qq.com/com">
-<meta name="keywords" content="Unity，热爱生活的程序猿">
+<meta name="description" content="UGUI优化：批次合并源码分析及工具 欢迎 来到  王国聪的博客!    本文引用于腾讯游戏学院 原文地址：https://gameinstitute.qq.com/community/detail/112235 1.   概述本文档对Unity GUI 批次合并（Batching）源码（基于Unity 4.6版本源码）进行研究，总结UGUI Batching的规则，并提供UI优化建议，以及UI层">
+<meta name="keywords" content="专业">
 <meta property="og:type" content="article">
-<meta property="og:title" content="欢迎来到王国聪的博客">
+<meta property="og:title" content="UGUI优化：批次合并源码分析及工具">
 <meta property="og:url" content="http://yoursite.com/2019/06/24/UGUI优化：批次合并源码分析及工具/index.html">
 <meta property="og:site_name" content="欢迎来到王国聪的博客">
-<meta property="og:description" content="title: UGUI优化：批次合并源码分析及工具categories:    这里写的分类会自动汇集到 categories 页面上，分类可以多级 unitytags: 这里写的标签会自动汇集到 tags 页面上 专业    UGUI优化：批次合并源码分析及工具 欢迎 来到  王国聪的博客!    本文引用于腾讯游戏学院 原文地址：https://gameinstitute.qq.com/com">
+<meta property="og:description" content="UGUI优化：批次合并源码分析及工具 欢迎 来到  王国聪的博客!    本文引用于腾讯游戏学院 原文地址：https://gameinstitute.qq.com/community/detail/112235 1.   概述本文档对Unity GUI 批次合并（Batching）源码（基于Unity 4.6版本源码）进行研究，总结UGUI Batching的规则，并提供UI优化建议，以及UI层">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/06/24/UGUI优化：批次合并源码分析及工具/1.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/06/24/UGUI优化：批次合并源码分析及工具/2.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/06/24/UGUI优化：批次合并源码分析及工具/3.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/06/24/UGUI优化：批次合并源码分析及工具/4.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/06/24/UGUI优化：批次合并源码分析及工具/5.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/06/24/UGUI优化：批次合并源码分析及工具/6.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/06/24/UGUI优化：批次合并源码分析及工具/7.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/06/24/UGUI优化：批次合并源码分析及工具/8.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/06/24/UGUI优化：批次合并源码分析及工具/9.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/06/24/UGUI优化：批次合并源码分析及工具/11.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/06/24/UGUI优化：批次合并源码分析及工具/10.jpg">
-<meta property="og:updated_time" content="2019-06-25T02:19:45.211Z">
+<meta property="og:image" content="http://wangguocong.github.io/2019/05/07/小红点系统/小红点系统.png">
+<meta property="og:updated_time" content="2019-06-25T02:25:58.468Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="欢迎来到王国聪的博客">
-<meta name="twitter:description" content="title: UGUI优化：批次合并源码分析及工具categories:    这里写的分类会自动汇集到 categories 页面上，分类可以多级 unitytags: 这里写的标签会自动汇集到 tags 页面上 专业    UGUI优化：批次合并源码分析及工具 欢迎 来到  王国聪的博客!    本文引用于腾讯游戏学院 原文地址：https://gameinstitute.qq.com/com">
-<meta name="twitter:image" content="http://yoursite.com/2019/06/24/UGUI优化：批次合并源码分析及工具/1.jpg">
+<meta name="twitter:title" content="UGUI优化：批次合并源码分析及工具">
+<meta name="twitter:description" content="UGUI优化：批次合并源码分析及工具 欢迎 来到  王国聪的博客!    本文引用于腾讯游戏学院 原文地址：https://gameinstitute.qq.com/community/detail/112235 1.   概述本文档对Unity GUI 批次合并（Batching）源码（基于Unity 4.6版本源码）进行研究，总结UGUI Batching的规则，并提供UI优化建议，以及UI层">
+<meta name="twitter:image" content="http://wangguocong.github.io/2019/05/07/小红点系统/小红点系统.png">
 
 
 
@@ -145,7 +135,7 @@
 
 
 
-  <title> | 欢迎来到王国聪的博客</title>
+  <title>UGUI优化：批次合并源码分析及工具 | 欢迎来到王国聪的博客</title>
   
 
 
@@ -305,7 +295,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">UGUI优化：批次合并源码分析及工具</h1>
         
 
         <div class="post-meta">
@@ -327,6 +317,39 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/unity/" itemprop="url" rel="index">
+                    <span itemprop="name">unity</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/unity/UGUI优化：批次合并源码分析及工具/" itemprop="url" rel="index">
+                    <span itemprop="name">UGUI优化：批次合并源码分析及工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -394,16 +417,23 @@
 
       
       
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="http://wangguocong.github.io/2019/05/07/小红点系统/小红点系统.png" rel="gallery_cjxb6usp300101wmdgxhj7emf" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://wangguocong.github.io/2019/05/07/小红点系统/小红点系统.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
 
       
-        <p>title: UGUI优化：批次合并源码分析及工具<br>categories:   </p>
-<h1 id="这里写的分类会自动汇集到-categories-页面上，分类可以多级"><a href="#这里写的分类会自动汇集到-categories-页面上，分类可以多级" class="headerlink" title="这里写的分类会自动汇集到 categories 页面上，分类可以多级"></a>这里写的分类会自动汇集到 categories 页面上，分类可以多级</h1><ul>
-<li>unity<br>tags: <h1 id="这里写的标签会自动汇集到-tags-页面上"><a href="#这里写的标签会自动汇集到-tags-页面上" class="headerlink" title="这里写的标签会自动汇集到 tags 页面上"></a>这里写的标签会自动汇集到 tags 页面上</h1><ul>
-<li>专业</li>
-</ul>
-</li>
-</ul>
-<h1 id="UGUI优化：批次合并源码分析及工具"><a href="#UGUI优化：批次合并源码分析及工具" class="headerlink" title="UGUI优化：批次合并源码分析及工具"></a><center>UGUI优化：批次合并源码分析及工具</center></h1><ul>
+        <h1 id="UGUI优化：批次合并源码分析及工具"><a href="#UGUI优化：批次合并源码分析及工具" class="headerlink" title="UGUI优化：批次合并源码分析及工具"></a><center>UGUI优化：批次合并源码分析及工具</center></h1><ul>
 <li><p>欢迎 来到  <a href="https://wangguocong.github.io/archives/" target="_blank" rel="noopener">王国聪</a>的博客! </p>
 </li>
 </ul>
@@ -505,6 +535,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/专业/" rel="tag"># 专业</a>
+          
+        </div>
       
 
       
@@ -618,7 +654,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -691,7 +727,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#这里写的分类会自动汇集到-categories-页面上，分类可以多级"><span class="nav-number">1.</span> <span class="nav-text">这里写的分类会自动汇集到 categories 页面上，分类可以多级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#这里写的标签会自动汇集到-tags-页面上"><span class="nav-number">2.</span> <span class="nav-text">这里写的标签会自动汇集到 tags 页面上</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UGUI优化：批次合并源码分析及工具"><span class="nav-number">3.</span> <span class="nav-text">UGUI优化：批次合并源码分析及工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-概述"><span class="nav-number">4.</span> <span class="nav-text">1.   概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-UGUI-Batching规则分析"><span class="nav-number">5.</span> <span class="nav-text">2.   UGUI Batching规则分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-UI层级显示辅助工具"><span class="nav-number">6.</span> <span class="nav-text">3.   UI层级显示辅助工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-小结"><span class="nav-number">7.</span> <span class="nav-text">4.   小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#UGUI优化：批次合并源码分析及工具"><span class="nav-number">1.</span> <span class="nav-text">UGUI优化：批次合并源码分析及工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-概述"><span class="nav-number">2.</span> <span class="nav-text">1.   概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-UGUI-Batching规则分析"><span class="nav-number">3.</span> <span class="nav-text">2.   UGUI Batching规则分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-UI层级显示辅助工具"><span class="nav-number">4.</span> <span class="nav-text">3.   UI层级显示辅助工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-小结"><span class="nav-number">5.</span> <span class="nav-text">4.   小结</span></a></li></ol></div>
             
 
           </div>
