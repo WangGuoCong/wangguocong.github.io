@@ -94,22 +94,20 @@
 <meta property="og:site_name" content="欢迎来到王国聪的博客">
 <meta property="og:description" content="从DrawCalls到GC 欢迎 来到  王国聪的博客!    本文引用于腾讯游戏学院 原文地址：https://gameinstitute.qq.com/community/detail/104155 看看优化需要从哪里着手？印象里遇到的童靴，提Unity3D项目优化则必提DrawCall，这自然没错，但也有很不好影响。因为这会给人一个错误的认识：所谓的优化就是把DrawCall弄的比较低就对了">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/从DrawCall到GC/1.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/从DrawCall到GC/2.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/从DrawCall到GC/3.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/从DrawCall到GC/4.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/从DrawCall到GC/5.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/从DrawCall到GC/6.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/从DrawCall到GC/7.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/从DrawCall到GC/8.png">
-<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
-<meta property="og:image" content="https://common.cnblogs.com/images/copycode.gif">
-<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/从DrawCall到GC/9.png">
-<meta property="og:updated_time" content="2019-07-11T05:05:26.940Z">
+<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/4.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/5.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/6.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/7.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/8.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/9.png">
+<meta property="og:updated_time" content="2019-07-11T05:10:18.657Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从DrawCalls到GC">
 <meta name="twitter:description" content="从DrawCalls到GC 欢迎 来到  王国聪的博客!    本文引用于腾讯游戏学院 原文地址：https://gameinstitute.qq.com/community/detail/104155 看看优化需要从哪里着手？印象里遇到的童靴，提Unity3D项目优化则必提DrawCall，这自然没错，但也有很不好影响。因为这会给人一个错误的认识：所谓的优化就是把DrawCall弄的比较低就对了">
-<meta name="twitter:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/从DrawCall到GC/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/11/从DrawCalls到GC/1.png">
 
 
 
@@ -437,23 +435,23 @@
 <h4 id="Static-Batching-静态批处理"><a href="#Static-Batching-静态批处理" class="headerlink" title="Static Batching 静态批处理"></a>Static Batching 静态批处理</h4><p>看名字，猜使用的情景。</p>
 <p>静态？那就是不动的咯。还有呢？额，听上去状态也不会改变，没有“生命”，比如山山石石，楼房校舍啥的。那和什么比较类似呢？嗯，聪明的各位一定觉得和场景的属性很像吧！所以我们的场景似乎就可以采用这种方式来减少draw call了。</p>
 <p>那么写个定义：只要这些物体不移动，并且拥有相同的材质，静态批处理就允许引擎对任意大小的几何物体进行批处理操作来降低描绘调用。</p>
-<p>那要如何使用静态批来减少Draw Call呢？你只需要明确指出哪些物体是静止的，并且在游戏中永远不会移动、旋转和缩放。想完成这一步，你只需要在检测器（Inspector）中将Static复选框打勾即可，如下图所示：<img src="/2019/07/11/从DrawCalls到GC/从DrawCall到GC/1.png" alt="1"></p>
+<p>那要如何使用静态批来减少Draw Call呢？你只需要明确指出哪些物体是静止的，并且在游戏中永远不会移动、旋转和缩放。想完成这一步，你只需要在检测器（Inspector）中将Static复选框打勾即可，如下图所示：<img src="/2019/07/11/从DrawCalls到GC/1.png" alt="1"></p>
 <p>至于效果如何呢？</p>
 <p>举个例子：新建4个物体，分别是Cube，Sphere, Capsule, Cylinder,它们有不同的网格模型，但是也有相同的材质（Default-Diffuse）。</p>
-<p>首先，我们不指定它们是static的。Draw Call的次数是4次，如图：<img src="/2019/07/11/从DrawCalls到GC/从DrawCall到GC/2.png" alt="2"></p>
-<p>我们现在将它们4个物体都设为static，在来运行一下         ：<img src="/2019/07/11/从DrawCalls到GC/从DrawCall到GC/3.png" alt="3"></p>
+<p>首先，我们不指定它们是static的。Draw Call的次数是4次，如图：<img src="/2019/07/11/从DrawCalls到GC/2.png" alt="2"></p>
+<p>我们现在将它们4个物体都设为static，在来运行一下         ：<img src="/2019/07/11/从DrawCalls到GC/3.png" alt="3"></p>
 <p>如图，Draw Call的次数变成了1，而Saved by batching的次数变成了3。</p>
 <p>静态批处理的好处很多，其中之一就是与下面要说的动态批处理相比，约束要少很多。所以一般推荐的是draw call的静态批处理来减少draw call的次数。那么接下来，我们就继续聊聊draw call的动态批处理。</p>
 <h3 id="Dynamic-Batching-动态批处理"><a href="#Dynamic-Batching-动态批处理" class="headerlink" title="Dynamic Batching 动态批处理"></a>Dynamic Batching 动态批处理</h3><p>有阴就有阳，有静就有动，所以聊完了静态批处理，肯定跟着就要说说动态批处理了。首先要明确一点，Unity3D的draw call动态批处理机制是引擎自动进行的，无需像静态批处理那样手动设置static。我们举一个动态实例化prefab的例子，如果动态物体共享相同的材质，则引擎会自动对draw call优化，也就是使用批处理。首先，我们将一个cube做成prefab，然后再实例化500次，看看draw call的数量。</p>
 <p>prefab，然后再实例化500次，看看draw call的数量。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for(int i = 0; i &lt; 500; i++)</span><br><span class="line">&#123;</span><br><span class="line">    GameObject cube;</span><br><span class="line">    cube = GameObject.Instantiate(prefab) as GameObject;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>draw call的数量：                                                                                       <img src="/2019/07/11/从DrawCalls到GC/从DrawCall到GC/4.png" alt="4"></p>
+<p>draw call的数量：                                                                                       <img src="/2019/07/11/从DrawCalls到GC/4.png" alt="4"></p>
 <p>可以看到draw call的数量为1，而 saved by batching的数量是499。而这个过程中，我们除了实例化创建物体之外什么都没做。不错，unity3d引擎为我们自动处理了这种情况。</p>
 <p>但是有很多童靴也遇到这种情况，就是我也是从prefab实例化创建的物体，为何我的draw call依然很高呢？这就是匹夫上文说的，draw call的动态批处理存在着很多约束。下面匹夫就演示一下，针对cube这样一个简单的物体的创建，如果稍有不慎就会造成draw call飞涨的情况吧。</p>
 <p>我们同样是创建500个物体，不同的是其中的100个物体，每个物体的大小都不同，也就是Scale不同。</p>
 <p>我们同样是创建500个物体，不同的是其中的100个物体，每个物体的大小都不同，也就是Scale不同。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">for(int i = 0; i &lt; 500; i++)</span><br><span class="line">&#123;</span><br><span class="line">    GameObject cube;</span><br><span class="line">    cube = GameObject.Instantiate(prefab) as GameObject;</span><br><span class="line">    if(i / 100 == 0)</span><br><span class="line">    &#123;</span><br><span class="line">        cube.transform.localScale = new Vector3(2 + i, 2 + i, 2 + i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>draw call的数量：                                                                                      <img src="/2019/07/11/从DrawCalls到GC/从DrawCall到GC/5.png" alt="5"></p>
+<p>draw call的数量：                                                                                      <img src="/2019/07/11/从DrawCalls到GC/5.png" alt="5"></p>
 <p>我们看到draw call的数量上升到了101次，而saved by batching的数量也下降到了399。各位看官可以看到，仅仅是一个简单的cube的创建，如果scale不同，竟然也不会去做批处理优化。这仅仅是动态批处理机制的一种约束，那我们总结一下动态批处理的约束，各位也许也能从中找到为何动态批处理在自己的项目中不起作用的原因：</p>
 <ol>
 <li><strong>批处理动态物体需要在每个顶点上进行一定的开销，所以动态批处理仅支持小于900顶点的网格物体。</strong></li>
@@ -469,7 +467,7 @@
 <p>所以，尽量使用静态的批处理。</p>
 <h3 id="物理组件"><a href="#物理组件" class="headerlink" title="物理组件"></a>物理组件</h3><p>曾几何时，匹夫在做一个策略类游戏的时候需要在单元格上排兵布阵，而要侦测到哪个兵站在哪个格子匹夫选择使用了射线，由于士兵单位很多，而且为了精确每一帧都会执行检测，那时候CPU的负担叫一个惨不忍睹。后来匹夫果断放弃了这种做法，并且对物理组件产生了心理的阴影。</p>
 <p>这里匹夫只提2点匹夫感觉比较重要的优化措施：</p>
-<p>1.设置一个合适的Fixed Timestep。设置的位置如图：<img src="/2019/07/11/从DrawCalls到GC/从DrawCall到GC/6.png" alt="6"></p>
+<p>1.设置一个合适的Fixed Timestep。设置的位置如图：<img src="/2019/07/11/从DrawCalls到GC/6.png" alt="6"></p>
 <p>那何谓“合适”呢？首先我们要搞明白Fixed Timestep和物理组件的关系。物理组件，或者说游戏中模拟各种物理效果的组件，最重要的是什么呢？计算啊。对，需要通过计算才能将真实的物理效果展现在虚拟的游戏中。那么Fixed Timestep这货就是和物理计算有关的啦。所以，若计算的频率太高，自然会影响到CPU的开销。同时，若计算频率达不到游戏设计时的要求，有会影响到功能的实现，所以如何抉择需要各位具体分析，选择一个合适的值。</p>
 <p>2.就是不要使用网格碰撞器（mesh collider）：为啥？因为实在是太复杂了。网格碰撞器利用一个网格资源并在其上构建碰撞器。对于复杂网状模型上的碰撞检测，它要比应用原型碰撞器精确的多。标记为凸起的（Convex ）的网格碰撞器才能够和其他网格碰撞器发生碰撞。各位上网搜一下mesh collider的图片，自然就会明白了。我们的手机游戏自然无需这种性价比不高的东西。</p>
 <p>当然，从性能优化的角度考虑，物理组件能少用还是少用为好。</p>
@@ -533,7 +531,7 @@
 <li>使用mipmap。</li>
 </ul>
 <h4 id="MipMap"><a href="#MipMap" class="headerlink" title="MipMap"></a>MipMap</h4><p>这里匹夫要着重介绍一下MipMap到底是啥。因为有人说过MipMap会占用内存呀，但为何又会优化显存带宽呢？那就不得不从MipMap是什么开始聊起。一张图其实就能解决这个疑问。</p>
-<p><img src="/2019/07/11/从DrawCalls到GC/从DrawCall到GC/7.jpg" alt="7"></p>
+<p><img src="/2019/07/11/从DrawCalls到GC/7.jpg" alt="7"></p>
 <p><em>上面是一个mipmap 如何储存的例子，左边的主图伴有一系列逐层缩小的备份小图</em></p>
 <p>是不是很一目了然呢？Mipmap中每一个层级的小图都是主图的一个特定比例的缩小细节的复制品。因为存了主图和它的那些缩小的复制品，所以内存占用会比之前大。但是为何又优化了显存带宽呢？因为可以根据实际情况，选择适合的小图来渲染。所以，虽然会消耗一些内存，但是为了图片渲染的质量（比压缩要好），这种方式也是推荐的。</p>
 <h2 id="内存的优化"><a href="#内存的优化" class="headerlink" title="内存的优化"></a>内存的优化</h2><p>既然要聊Unity3D运行时候的内存优化，那我们自然首先要知道Unity3D游戏引擎是如何分配内存的。大概可以分成三大部分：</p>
@@ -564,12 +562,10 @@
 <li>解压缩之后的文件</li>
 </ul>
 <p>如图：</p>
-<p><img src="/2019/07/11/从DrawCalls到GC/从DrawCall到GC/8.png" alt="8"></p>
+<p><img src="/2019/07/11/从DrawCalls到GC/8.png" alt="8"></p>
 <p>那么下面就举一个AssetBundle的例子：</p>
 <h4 id="Assetbundle的内存处理"><a href="#Assetbundle的内存处理" class="headerlink" title="Assetbundle的内存处理"></a>Assetbundle的内存处理</h4><p>以下载Assetbundle为例子，聊一下内存的分配。匹夫从官网的手册上找到了一个使用Assetbundle的情景如下：</p>
-<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">IEnumerator DownloadAndCache ()&#123;</span><br><span class="line">        // Wait for the Caching system to be ready</span><br><span class="line">        while (!Caching.ready)</span><br><span class="line">            yield return null;</span><br><span class="line"></span><br><span class="line">        // Load the AssetBundle file from Cache if it exists with the same version or download and store it in the cache</span><br><span class="line">        using(WWW www = WWW.LoadFromCacheOrDownload (BundleURL, version))&#123;</span><br><span class="line">            yield return www; //WWW是第1部分</span><br><span class="line">            if (www.error != null)</span><br><span class="line">                throw new Exception(&quot;WWW download had an error:&quot; + www.error);</span><br><span class="line">            AssetBundle bundle = www.assetBundle;//AssetBundle是第2部分</span><br><span class="line">            if (AssetName == &quot;&quot;)</span><br><span class="line">                Instantiate(bundle.mainAsset);//实例化是第3部分</span><br><span class="line">            else</span><br><span class="line">                Instantiate(bundle.Load(AssetName));</span><br><span class="line">                    // Unload the AssetBundles compressed contents to conserve memory</span><br><span class="line">                    bundle.Unload(false);</span><br><span class="line"></span><br><span class="line">        &#125; // memory is freed from the web stream (www.Dispose() gets called implicitly)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
 <p>内存分配的三个部分匹夫已经在代码中标识了出来：</p>
 <ol>
 <li><strong><em>Web Stream</em></strong>：包括了压缩的文件，解压所需的缓存，以及解压后的文件。</li>
@@ -602,7 +598,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//删除AssetBundle</span><br><span class="line">bundle.Unload(false);</span><br></pre></td></tr></table></figure>
 <p>ok，写到这里就先打住啦。写的有点超了。有点赶也有点临时，日后在补充编辑。</p>
 <h2 id="更新，使用Unity-Profiler工具检测内存"><a href="#更新，使用Unity-Profiler工具检测内存" class="headerlink" title="更新，使用Unity Profiler工具检测内存"></a>更新，使用Unity Profiler工具检测内存</h2><p>这篇文章当时写的时候略显仓促，因此并没有特别介绍Unity Profiler工具，也更谈不上用Unity Profiler工具来监测内存的使用状态了。但是使用Unity Profiler工具来监测还是十分必要的，下面就简单补充一下这方面的知识。</p>
-<p><img src="/2019/07/11/从DrawCalls到GC/从DrawCall到GC/9.png" alt="9"></p>
+<p><img src="/2019/07/11/从DrawCalls到GC/9.png" alt="9"></p>
 <p>在Profiler工具中提供了两种模式供我们监测内存的使用情况，即简易模式和详细模式。在简易模式中，我们可以看到总的内存（total）列出了两列，即<strong>Used Total（使用总内存）</strong>和<strong>Reserved Total（预定总内存）</strong>。Used Total和Reserved 均是物理内存，其中Reserved是unity向系统申请的总内存，Unity底层为了不经常向系统申请开辟内存，开启了较大一块内存作为<strong>缓存</strong>，即所谓的<strong>Reserved内存</strong>，而运行时，unity所使用的内存首先是向Reserved中来申请内存，当不使用时也是先向Reserved中释放内存，从而来保证游戏运行的流畅性。一般来说，Used Total越大，则Reserved Total越大，而当Used Total降下去后，Reserved Total也是会随之下降的（但并不一定与Used Total同步）。</p>
 <p>Unity3D的内存从大体上可以分为以下几个部分：</p>
 <ol>
