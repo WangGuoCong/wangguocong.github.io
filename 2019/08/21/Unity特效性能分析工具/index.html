@@ -86,20 +86,18 @@
 
 
 
-<meta name="description" content="欢迎 来到  王国聪的博客!  (一)垃圾回收机制是什么？垃圾回收是一种动态存储管理技术，它自动地释放不再被程序引用的对象，按照特定的垃圾收集算法来实现资源自动回收的功能。当一个对象不再被引用的时候，内存回收它占领的空间，以便空间被后来的新对象使用，以免造成内存泄露。   (二)Java的垃圾回收有什么特点？JAVA语言不允许程序员直接控制内存空间的使用。内存空间的分配和回收都是由JRE负责在后台">
+<meta name="description" content="Unity特效性能分析工具介绍摘选自：狂飙 Unity 中的特效在制作过程中往往会只注重效果，而忽视性能。往往做了很多特效之后才发现真机上同时播放多个特效时卡顿。 特效与其他原始资源（模型、纹理、动画等等）不同，前者是动态的，而后者是静态的。因此不能使用传统的分析方法只看一些静态的数据是否正确，而必须记录动态的数据。 搜索了一下，发现有人已经写好了一个工具：sunbrando/ParticleEf">
 <meta name="keywords" content="专业">
 <meta property="og:type" content="article">
-<meta property="og:title" content="垃圾回收机制(GC)的六个小知识">
-<meta property="og:url" content="http://yoursite.com/2019/03/15/垃圾回收机制(GC)的六个小知识/index.html">
+<meta property="og:title" content="Unity特效性能分析工具">
+<meta property="og:url" content="http://yoursite.com/2019/08/21/Unity特效性能分析工具/index.html">
 <meta property="og:site_name" content="欢迎来到王国聪的博客">
-<meta property="og:description" content="欢迎 来到  王国聪的博客!  (一)垃圾回收机制是什么？垃圾回收是一种动态存储管理技术，它自动地释放不再被程序引用的对象，按照特定的垃圾收集算法来实现资源自动回收的功能。当一个对象不再被引用的时候，内存回收它占领的空间，以便空间被后来的新对象使用，以免造成内存泄露。   (二)Java的垃圾回收有什么特点？JAVA语言不允许程序员直接控制内存空间的使用。内存空间的分配和回收都是由JRE负责在后台">
+<meta property="og:description" content="Unity特效性能分析工具介绍摘选自：狂飙 Unity 中的特效在制作过程中往往会只注重效果，而忽视性能。往往做了很多特效之后才发现真机上同时播放多个特效时卡顿。 特效与其他原始资源（模型、纹理、动画等等）不同，前者是动态的，而后者是静态的。因此不能使用传统的分析方法只看一些静态的数据是否正确，而必须记录动态的数据。 搜索了一下，发现有人已经写好了一个工具：sunbrando/ParticleEf">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://wangguocong.github.io/2019/03/15/垃圾回收机制(GC)的六个小知识/垃圾回收机制.png">
-<meta property="og:updated_time" content="2019-03-15T10:13:06.146Z">
+<meta property="og:updated_time" content="2019-08-21T08:57:05.273Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="垃圾回收机制(GC)的六个小知识">
-<meta name="twitter:description" content="欢迎 来到  王国聪的博客!  (一)垃圾回收机制是什么？垃圾回收是一种动态存储管理技术，它自动地释放不再被程序引用的对象，按照特定的垃圾收集算法来实现资源自动回收的功能。当一个对象不再被引用的时候，内存回收它占领的空间，以便空间被后来的新对象使用，以免造成内存泄露。   (二)Java的垃圾回收有什么特点？JAVA语言不允许程序员直接控制内存空间的使用。内存空间的分配和回收都是由JRE负责在后台">
-<meta name="twitter:image" content="http://wangguocong.github.io/2019/03/15/垃圾回收机制(GC)的六个小知识/垃圾回收机制.png">
+<meta name="twitter:title" content="Unity特效性能分析工具">
+<meta name="twitter:description" content="Unity特效性能分析工具介绍摘选自：狂飙 Unity 中的特效在制作过程中往往会只注重效果，而忽视性能。往往做了很多特效之后才发现真机上同时播放多个特效时卡顿。 特效与其他原始资源（模型、纹理、动画等等）不同，前者是动态的，而后者是静态的。因此不能使用传统的分析方法只看一些静态的数据是否正确，而必须记录动态的数据。 搜索了一下，发现有人已经写好了一个工具：sunbrando/ParticleEf">
 
 
 
@@ -129,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/15/垃圾回收机制(GC)的六个小知识/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/21/Unity特效性能分析工具/">
 
 
 
 
 
-  <title>垃圾回收机制(GC)的六个小知识 | 欢迎来到王国聪的博客</title>
+  <title>Unity特效性能分析工具 | 欢迎来到王国聪的博客</title>
   
 
 
@@ -278,7 +276,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/垃圾回收机制(GC)的六个小知识/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/Unity特效性能分析工具/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王国聪">
@@ -295,7 +293,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">垃圾回收机制(GC)的六个小知识</h1>
+          <h1 class="post-title" itemprop="name headline">Unity特效性能分析工具</h1>
         
 
         <div class="post-meta">
@@ -307,8 +305,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T16:18:04+08:00">
-                2019-03-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-21T16:48:59+08:00">
+                2019-08-21
               </time>
             
 
@@ -337,6 +335,17 @@
 
                 
                 
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/unity/Unity特效性能分析工具/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity特效性能分析工具</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -348,8 +357,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/15/垃圾回收机制(GC)的六个小知识/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/15/垃圾回收机制(GC)的六个小知识/" itemprop="commentCount"></span>
+                <a href="/2019/08/21/Unity特效性能分析工具/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/21/Unity特效性能分析工具/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -371,7 +380,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  676
+                  1.5k
                 </span>
               
 
@@ -387,7 +396,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  5
                 </span>
               
             </div>
@@ -406,31 +415,68 @@
 
       
       
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="http://wangguocong.github.io/2019/03/15/垃圾回收机制(GC)的六个小知识/垃圾回收机制.png" rel="gallery_cjzl0xo0g0008bkmd7e4dranh" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="http://wangguocong.github.io/2019/03/15/垃圾回收机制(GC)的六个小知识/垃圾回收机制.png" itemprop="contentUrl">
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
 
       
-        <p>欢迎 来到  <a href="https://wangguocong.github.io/archives/" target="_blank" rel="noopener">王国聪</a>的博客! </p>
-<h2 id="一-垃圾回收机制是什么？"><a href="#一-垃圾回收机制是什么？" class="headerlink" title="(一)垃圾回收机制是什么？"></a>(一)垃圾回收机制是什么？</h2><p>垃圾回收是一种动态存储管理技术，它自动地释放不再被程序引用的对象，按照特定的垃圾收集算法来实现资源自动回收的功能。当一个对象不再被引用的时候，内存回收它占领的空间，以便空间被后来的新对象使用，以免造成内存泄露。  </p>
-<h2 id="二-Java的垃圾回收有什么特点？"><a href="#二-Java的垃圾回收有什么特点？" class="headerlink" title="(二)Java的垃圾回收有什么特点？"></a>(二)Java的垃圾回收有什么特点？</h2><p>JAVA语言不允许程序员直接控制内存空间的使用。内存空间的分配和回收都是由JRE负责在后台自动进行的，尤其是无用内存空间的回收操作 (garbagecollection,也称垃圾回收)，只能由运行环境提供的一个超级线程进行监测和控制</p>
-<h2 id="三-垃圾回收器什么时候运行？"><a href="#三-垃圾回收器什么时候运行？" class="headerlink" title="(三)垃圾回收器什么时候运行？"></a>(三)垃圾回收器什么时候运行？</h2><p>一般是在CPU空闲或空间不足时自动进行垃圾回收，而程序员无法精确控制垃圾回收的时机和顺序等。</p>
-<h2 id="四-怎么判断符合垃圾回收条件的对象？"><a href="#四-怎么判断符合垃圾回收条件的对象？" class="headerlink" title="(四)怎么判断符合垃圾回收条件的对象？"></a>(四)怎么判断符合垃圾回收条件的对象？</h2><p>当没有任何获得线程能访问一个对象时，该对象就符合垃圾回收条件。</p>
-<h2 id="五-垃圾回收器怎样工作的？"><a href="#五-垃圾回收器怎样工作的？" class="headerlink" title="(五)垃圾回收器怎样工作的？"></a>(五)垃圾回收器怎样工作的？</h2><p>垃圾回收器如发现一个对象不能被任何活线程访问时，它将认为该对象符合删除条件，就将其加入回收队列，但不是立即销毁对象，何时销毁并释放内存是无法预知的。垃圾回收不能强制执行，然而Java提供了一些方法（如：System.gc()方法），允许你请求JVM执行垃圾回收，而不是要求，虚拟机会尽其所能满足请求，但是不能保证JVM从内存中删除所有不用的对象。</p>
-<h2 id="六-一个java程序能够耗尽内存吗？"><a href="#六-一个java程序能够耗尽内存吗？" class="headerlink" title="(六)一个java程序能够耗尽内存吗？"></a>(六)一个java程序能够耗尽内存吗？</h2><p>可以。垃圾收集系统尝试在对象不被使用时把他们从内存中删除。然而，如果保持太多活的对象，系统则可能会耗尽内存。垃圾回收器不能保证有足够的内存，只能保证可用内存尽可能的得到高效的管理。</p>
-<p>垃圾收集前进行清理 ——finalize()方法</p>
-<p>Java提供了一种机制，使你能够在对象刚要被垃圾回收之前运行一些代码。这段代码位于名为finalize()的方法内，所有类从Object类继承这个方法。由于不能保证垃圾回收器会删除某个对象。因此放在finalize()中的代码无法保证运行。因此建议不要重写finalize()</p>
+        <h1 id="Unity特效性能分析工具"><a href="#Unity特效性能分析工具" class="headerlink" title="Unity特效性能分析工具"></a><center>Unity特效性能分析工具</center></h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>摘选自：<a href="https://networm.me/" target="_blank" rel="noopener">狂飙</a></p>
+<p>Unity 中的特效在制作过程中往往会只注重效果，而忽视性能。往往做了很多特效之后才发现真机上同时播放多个特效时卡顿。</p>
+<p>特效与其他原始资源（模型、纹理、动画等等）不同，前者是动态的，而后者是静态的。因此不能使用传统的分析方法只看一些静态的数据是否正确，而必须记录动态的数据。</p>
+<p>搜索了一下，发现有人已经写好了一个工具：<a href="https://github.com/sunbrando/ParticleEffectProfiler" target="_blank" rel="noopener">sunbrando/ParticleEffectProfiler: Unity 特效性能分析工具</a></p>
+<p>看简介发现支持的功能很多：贴图内存占用、DrawCall 数量、粒子数量、特效原填充像素点、特效实际填充像素点、OverDraw 比率等等。</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>Unity 5.6.6f2</li>
+</ul>
+<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>由于文档中并未对功能进行详细的说明，因此需要阅读源码确认：</p>
+<ol>
+<li>确定所有功能含义以及获取的数值是否正确，如有错误需修正。</li>
+<li>修正在检查过程中发现的问题。</li>
+<li>补充缺失功能，如显示贴图数量、ParticleSystem 数量等等。</li>
+<li>Unity 版本兼容问题。</li>
+<li><a href="https://github.com/sunbrando/ParticleEffectProfiler/issues/1" target="_blank" rel="noopener">整合进项目后，打包时会报错UnityEditor找不到 · Issue #1 · sunbrando/ParticleEffectProfiler</a>。</li>
+</ol>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="兼容问题"><a href="#兼容问题" class="headerlink" title="兼容问题"></a>兼容问题</h3><p><code>ProjectSettings/ProjectVersion.txt</code> 显示的版本号是 Unity 2017.2.2f1，因此在目标版本 Unity 5.6.6f2 上有一些 API 不存在，需要手动加入版本宏定义进行处理。</p>
+<p>例如粒子数量是通过反射调用 Unity 2017.2.2f1 中的 <code>ParticleSystem.CalculateEffectUIData</code>，需要修改为 Unity 5.6.6f2 的 <code>ParticleSystem.CountSubEmitterParticles</code>。</p>
+<h3 id="获取信息不正确"><a href="#获取信息不正确" class="headerlink" title="获取信息不正确"></a>获取信息不正确</h3><p>检查源代码发现获取贴图内存使用的是 <code>Profiler.GetRuntimeMemorySizeLong</code> API，在编辑器下显示的是编辑器所在的平台内存占用，而不是目标平台的内存占用。</p>
+<p>因此修改为通过反射调用的 Unity 私有 API <code>UnityEditor.TextureUtil.GetStorageMemorySize</code>，这是预览窗口中显示目标平台内存大小的 API。</p>
+<h3 id="DrawCall-数值为什么比实际大-2-倍？"><a href="#DrawCall-数值为什么比实际大-2-倍？" class="headerlink" title="DrawCall 数值为什么比实际大 2 倍？"></a>DrawCall 数值为什么比实际大 2 倍？</h3><p>在 <code>Stats</code> 视图中显示的 DrawCall 数值，使用工具时的数值是未使用工具时的大概 2 倍。</p>
+<p>阅读源码发现 Camera 实际上渲染了两次，一次用作取样，一次用作显示。取样是用于计算 OverDraw 比率。</p>
+<p>但是实际上还是会少算一次，因为默认情况下根据不同的 Unity 版本可能会有一次 Blit（Unity 5.6.6f2 默认强制开启 Blit），用于将当前渲染的结果送到屏幕上，以解决分辨率不同的问题。</p>
+<h3 id="其他参数是什么意思？"><a href="#其他参数是什么意思？" class="headerlink" title="其他参数是什么意思？"></a>其他参数是什么意思？</h3><p>信息面板中以下属性是什么意思？</p>
+<ol>
+<li>特效原填充像素点</li>
+<li>特效实际填充像素点</li>
+<li>平均每像素overdraw率</li>
+</ol>
+<p>阅读代码发现原理是将相机渲染到一张 512x512 的 <code>RenderTexture</code>，然后计算有颜色的像素数量，以及有颜色的像素重复渲染次数，取平均值显示，同时计算比率。</p>
+<h3 id="打包时有编译错误"><a href="#打包时有编译错误" class="headerlink" title="打包时有编译错误"></a>打包时有编译错误</h3><p>因为运行时脚本中存在 <code>using UnityEditor;</code> 声明，理论上来说此工具并不需要打包到最终版本中，因此将使用到的运行时脚本使用 <code>UNITY_EDITOR</code> 宏定义完全包围，这样就不会影响打包。</p>
+<h2 id="缺失功能"><a href="#缺失功能" class="headerlink" title="缺失功能"></a>缺失功能</h2><h3 id="ParticleSystem-数量"><a href="#ParticleSystem-数量" class="headerlink" title="ParticleSystem 数量"></a>ParticleSystem 数量</h3><p>使用 <code>GetComponentsInChildren(true)</code> 获取数组，然后直接打印组件的数量即可。</p>
+<p>注意：一定要包含未启用的 ParticleSystem 组件，防止统计有误。</p>
+<h3 id="贴图-数量"><a href="#贴图-数量" class="headerlink" title="贴图 数量"></a>贴图 数量</h3><p>在遍历获取贴图大小时，可以一并将其计数返回。</p>
+<p>注意：考虑到特效中使用的不同 ParticleSystem 可能会引用相同的贴图，因此在遍历时必须去除重复。</p>
+<h3 id="操作优化"><a href="#操作优化" class="headerlink" title="操作优化"></a>操作优化</h3><p>实际使用工具时是先添加脚本后再运行的，这样导致 Prefab 上增加了一个无用的脚本。 不过如果未去除 <code>ParticleEffectScript</code> 脚本就点击 Prefab 的 Apply 按钮保存则工具会报错。 但是实际上美术在使用工具时偶尔会遗忘，从而导致 Prefab 资源被无用脚本污染。</p>
+<p>解决方案是使用播放状态变化事件以及编辑器自身的 Update 事件去检查是否进入到播放状态，决定是否添加测试脚本。</p>
+<p>注意：<code>InitializeOnLoad</code> 会在播放后重新触发，因此无法通过静态变量的方式保存测试开始的请求状态，因此使用 <code>EditorPref</code> 保存请求状态。</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
+<li>需要新建特效性能评估专用场景，调整好相机的视角、距离与 Clear Flags，用作基准，在之后的测试中尽量不发生变化，否则结果不便比较。</li>
+<li>只能在场景中放置一个要测试的特效，不能放入其他特效导致结果被污染。</li>
+</ol>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>以下列出了一些比较好但未实现的需求，如果时间允许或其他人有兴趣可以考虑实现：</p>
+<ol>
+<li>README 文档更新，详细介绍工具功能以及背后原理，方便他人使用。</li>
+<li>每一项数据如果有超过推荐值则应显示为红色。</li>
+<li>导致无法裁剪的列表中只显示特效名字而未显示路径，其实最好显示 <code>ObjectField</code>，这样可以直接点击跳转到对应的 <code>GameObject</code>。</li>
+<li><code>RenderTexture</code> 与 <code>Texture</code> 需要缓存起来，不要每帧都分配。</li>
+<li>使用 <code>string.Format</code> 与 <code>StringBuilder</code> 格式化字符串，减少内存消耗。</li>
+<li>浮点数比较去除直接比较，防止丢失精度与产生警告。</li>
+<li>字体需要修改为系统自带的字体，同时调整字号。</li>
+<li>使用命名空间重新组织代码，重新命名脚本。</li>
+<li>项目结构不太合理，可以考虑不作为一整个 Unity 项目，而作为 Unity 中的一个单独插件目录管理，例如 NGUI。</li>
+<li>应该正确设置屏幕分辨率，需要与目标设备的最流行分辨率一致。</li>
+</ol>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><p>更新 20190729</p>
+<p><a href="https://github.com/networm/ParticleEffectProfiler/tree/feature/enhancement" target="_blank" rel="noopener">Pull Request</a> 已合并到上游</p>
+<ul>
+<li><a href="https://github.com/sunbrando/ParticleEffectProfiler" target="_blank" rel="noopener">sunbrando/ParticleEffectProfiler: Unity 特效性能分析工具</a></li>
+</ul>
 
       
     </div>
@@ -490,8 +536,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/04/Unity的50个技巧/" rel="next" title="Unity的50个技巧">
-                <i class="fa fa-chevron-left"></i> Unity的50个技巧
+              <a href="/2019/07/11/从DrawCalls到GC/" rel="next" title="从DrawCalls到GC">
+                <i class="fa fa-chevron-left"></i> 从DrawCalls到GC
               </a>
             
           </div>
@@ -499,10 +545,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/20/什么是MVVM框架/" rel="prev" title="什么是MVVM框架">
-                什么是MVVM框架 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -670,7 +712,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-垃圾回收机制是什么？"><span class="nav-number">1.</span> <span class="nav-text">(一)垃圾回收机制是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-Java的垃圾回收有什么特点？"><span class="nav-number">2.</span> <span class="nav-text">(二)Java的垃圾回收有什么特点？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-垃圾回收器什么时候运行？"><span class="nav-number">3.</span> <span class="nav-text">(三)垃圾回收器什么时候运行？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四-怎么判断符合垃圾回收条件的对象？"><span class="nav-number">4.</span> <span class="nav-text">(四)怎么判断符合垃圾回收条件的对象？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五-垃圾回收器怎样工作的？"><span class="nav-number">5.</span> <span class="nav-text">(五)垃圾回收器怎样工作的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六-一个java程序能够耗尽内存吗？"><span class="nav-number">6.</span> <span class="nav-text">(六)一个java程序能够耗尽内存吗？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Unity特效性能分析工具"><span class="nav-number">1.</span> <span class="nav-text">Unity特效性能分析工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">1.2.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需求"><span class="nav-number">1.3.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">1.4.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#兼容问题"><span class="nav-number">1.4.1.</span> <span class="nav-text">兼容问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取信息不正确"><span class="nav-number">1.4.2.</span> <span class="nav-text">获取信息不正确</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DrawCall-数值为什么比实际大-2-倍？"><span class="nav-number">1.4.3.</span> <span class="nav-text">DrawCall 数值为什么比实际大 2 倍？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他参数是什么意思？"><span class="nav-number">1.4.4.</span> <span class="nav-text">其他参数是什么意思？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包时有编译错误"><span class="nav-number">1.4.5.</span> <span class="nav-text">打包时有编译错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缺失功能"><span class="nav-number">1.5.</span> <span class="nav-text">缺失功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ParticleSystem-数量"><span class="nav-number">1.5.1.</span> <span class="nav-text">ParticleSystem 数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贴图-数量"><span class="nav-number">1.5.2.</span> <span class="nav-text">贴图 数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作优化"><span class="nav-number">1.5.3.</span> <span class="nav-text">操作优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-number">1.6.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化"><span class="nav-number">1.7.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工具"><span class="nav-number">1.8.</span> <span class="nav-text">工具</span></a></li></ol></li></ol></div>
             
 
           </div>
