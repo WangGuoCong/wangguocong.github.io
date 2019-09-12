@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="专业,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="优化Unity游戏项目的脚本（上） 欢迎 来到  王国聪的博客!    本文将由捷克独立游戏工作室Lonely Vertex的开发工程师Ondřej Kofroň，分享C#脚本的一系列优化方法，并提供改进Unity游戏性能的最佳实践。 在开发游戏时，我们遇到了游戏过程中偶尔出现延迟的问题。在使用Unity性能分析器进行分析后，我们问题主要来源于：未优化的着色器和未优化的C#脚本。  寻找问题Uni">
+<meta name="keywords" content="专业">
+<meta property="og:type" content="article">
+<meta property="og:title" content="优化Unity游戏项目的脚本（上）">
+<meta property="og:url" content="http://yoursite.com/2019/09/12/优化Unity游戏项目的脚本（上）/index.html">
+<meta property="og:site_name" content="欢迎来到王国聪的博客">
+<meta property="og:description" content="优化Unity游戏项目的脚本（上） 欢迎 来到  王国聪的博客!    本文将由捷克独立游戏工作室Lonely Vertex的开发工程师Ondřej Kofroň，分享C#脚本的一系列优化方法，并提供改进Unity游戏性能的最佳实践。 在开发游戏时，我们遇到了游戏过程中偶尔出现延迟的问题。在使用Unity性能分析器进行分析后，我们问题主要来源于：未优化的着色器和未优化的C#脚本。  寻找问题Uni">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/09/12/优化Unity游戏项目的脚本（上）/640.webp">
+<meta property="og:image" content="http://yoursite.com/2019/09/12/优化Unity游戏项目的脚本（上）/1.webp">
+<meta property="og:image" content="http://yoursite.com/2019/09/12/优化Unity游戏项目的脚本（上）/2.webp">
+<meta property="og:updated_time" content="2019-09-12T03:48:08.857Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="优化Unity游戏项目的脚本（上）">
+<meta name="twitter:description" content="优化Unity游戏项目的脚本（上） 欢迎 来到  王国聪的博客!    本文将由捷克独立游戏工作室Lonely Vertex的开发工程师Ondřej Kofroň，分享C#脚本的一系列优化方法，并提供改进Unity游戏性能的最佳实践。 在开发游戏时，我们遇到了游戏过程中偶尔出现延迟的问题。在使用Unity性能分析器进行分析后，我们问题主要来源于：未优化的着色器和未优化的C#脚本。  寻找问题Uni">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/12/优化Unity游戏项目的脚本（上）/640.webp">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/12/优化Unity游戏项目的脚本（上）/">
+
+
+
+
+
+  <title>优化Unity游戏项目的脚本（上） | 欢迎来到王国聪的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">欢迎来到王国聪的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">所有的为时已晚都是开始的最好时候</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/12/优化Unity游戏项目的脚本（上）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王国聪">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="欢迎来到王国聪的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">优化Unity游戏项目的脚本（上）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-12T10:57:59+08:00">
+                2019-09-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/unity/" itemprop="url" rel="index">
+                    <span itemprop="name">unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/12/优化Unity游戏项目的脚本（上）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/12/优化Unity游戏项目的脚本（上）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="优化Unity游戏项目的脚本（上）"><a href="#优化Unity游戏项目的脚本（上）" class="headerlink" title="优化Unity游戏项目的脚本（上）"></a><center>优化Unity游戏项目的脚本（上）</center></h1><ul>
+<li><p>欢迎 来到  <a href="https://wangguocong.github.io/archives/" target="_blank" rel="noopener">王国聪</a>的博客! </p>
+</li>
+</ul>
+<p>本文将由捷克独立游戏工作室Lonely Vertex的开发工程师Ondřej Kofroň，分享C#脚本的一系列优化方法，并提供改进Unity游戏性能的最佳实践。</p>
+<p>在开发游戏时，我们遇到了游戏过程中偶尔出现延迟的问题。在使用Unity性能分析器进行分析后，我们问题主要来源于：<strong>未优化的着色器和未优化的C#脚本</strong>。</p>
+<p><img src="/2019/09/12/优化Unity游戏项目的脚本（上）/640.webp" alt="640"></p>
+<h2 id="寻找问题"><a href="#寻找问题" class="headerlink" title="寻找问题"></a>寻找问题</h2><p>Unity性能分析器是寻找造成卡顿脚本的最佳方法。我强烈建议直接在设备上对游戏进行性能分析，而不是在编辑器中进行性能分析。</p>
+<p>本文中分享的游戏项目面向iOS，所以我们需要连接设备。如下图所示，设置Build Settings，然后性能分析器就会自动连接。</p>
+<p><img src="/2019/09/12/优化Unity游戏项目的脚本（上）/1.webp" alt="1"></p>
+<p>如果我们在网上搜索“Unity中的偶发卡顿”或类似关键词，你可能会发现大多数人建议重点处理垃圾回收。</p>
+<p>每当停止使用某些对象即类的实例后，便会产生垃圾，然后会不定时运行Unity垃圾回收器来清理垃圾，取消分配相关的内存，这样的工作会占据大量时间，造成帧率降低现象。</p>
+<h3 id="如何在性能分析器中找到导致垃圾分配的脚本？"><a href="#如何在性能分析器中找到导致垃圾分配的脚本？" class="headerlink" title="如何在性能分析器中找到导致垃圾分配的脚本？"></a>如何在性能分析器中找到导致垃圾分配的脚本？</h3><p>我们选中CPU Usage部分，如下选择Hierarchy视图，单击GC Alloc，从而根据GC Alloc的情况进行排序。</p>
+<p>下图为垃圾回收的Profiler设置。</p>
+<p><img src="/2019/09/12/优化Unity游戏项目的脚本（上）/2.webp" alt="2"></p>
+<p>我们的目标是在游戏场景中，使GC Alloc栏的所有数值都为0。一个不错的做法是根据Time ms（即执行时间）排序记录，然后优化脚本，使其尽可能使用较少时间。</p>
+<p>这对我们而言极为重要，因为游戏中有一个组件包含一个大型for循环，该循环要使用很多时间来执行，而且我们目前无法处理好这个循环，所以优化所有脚本的执行时间非常必要，我们需要为耗时较长的for循环节省一些执行时间，同时保持60fps。</p>
+<p>根据性能分析的结果，我们将优化过程分为两个部分：</p>
+<ul>
+<li><p><strong>处理垃圾回收</strong></p>
+</li>
+<li><p><strong>减少执行时间</strong></p>
+</li>
+</ul>
+<h3 id="第一部分：处理垃圾回收"><a href="#第一部分：处理垃圾回收" class="headerlink" title="第一部分：处理垃圾回收"></a>第一部分：处理垃圾回收</h3><p>我们将关注处理垃圾回收的过程。这些内容是每位开发者都应该掌握的基础知识，也是我们平时对同步和合并请求，进行代码评审的重要部分。</p>
+<h4 id="规则1：不在Update方法中创建新对象"><a href="#规则1：不在Update方法中创建新对象" class="headerlink" title="规则1：不在Update方法中创建新对象"></a>规则1：不在Update方法中创建新对象</h4><p>理想情况下，开发者在Update、FixedUpdate或LateUpdate方法中不应该使用New关键字，而是应该使用已有对象。</p>
+<p>有时新对象创建过程会隐藏在一些Unity内部方法中，所以过程并不明显。</p>
+<h4 id="规则2：一次创建，多次重用"><a href="#规则2：一次创建，多次重用" class="headerlink" title="规则2：一次创建，多次重用"></a>规则2：一次创建，多次重用</h4><p>这条规则的意思是：<strong>要在Start方法和Awake方法中分配所有内容</strong>。这条规则和第一条类似，其实只是从Update方法移除new关键字的另一种方式。</p>
+<p>开发者应该从Update方法移除有以下行为的代码：</p>
+<ul>
+<li>创建新实例</li>
+<li>寻找任意游戏对象</li>
+</ul>
+<p>然后，将这些代码移动到Start方法或Awake方法中。</p>
+<p>下面是我们进行的改动示例。</p>
+<p>我们可以在Start方法分配List列表，在需要时使用Clear函数清空列表，并在任何位置重用这些内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//未优化的代码</span><br><span class="line">private List&lt;GameObject&gt; objectsList;void Update()</span><br><span class="line">&#123;</span><br><span class="line">    objectsList = new List&lt;GameObject&gt;();</span><br><span class="line">    objectsList.Add(......)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//优化后的代码</span><br><span class="line">private List&lt;GameObject&gt; objectsList;void Start()</span><br><span class="line">&#123;</span><br><span class="line">    objectsList = new List&lt;GameObject&gt;();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Update()</span><br><span class="line">&#123;</span><br><span class="line">    objectsList.Clear();</span><br><span class="line">    objectsList.Add(......)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>进行存储和重用引用的过程如下面代码所示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//未优化的代码</span><br><span class="line">void Update()</span><br><span class="line">&#123;</span><br><span class="line">    var levelObstacles = FindObjectsOfType&lt;Obstacle&gt;();</span><br><span class="line">    foreach(var obstacle in levelObstacles) &#123; ....... &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//优化后的代码</span><br><span class="line">private Object[] levelObstacles;</span><br><span class="line"></span><br><span class="line">void Start()</span><br><span class="line">&#123;</span><br><span class="line">    levelObstacles = FindObjectsOfType&lt;Obstacle&gt;();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Update()</span><br><span class="line">&#123;</span><br><span class="line">    foreach(var obstacle in levelObstacles) &#123; ....... &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相同的规则也适用于FindGameObjectsWithTag等返回新数组的其它方法。</p>
+<h4 id="规则3：小心处理字符串，避免字符串连接"><a href="#规则3：小心处理字符串，避免字符串连接" class="headerlink" title="规则3：小心处理字符串，避免字符串连接"></a>规则3：小心处理字符串，避免字符串连接</h4><p>在涉及到垃圾分配的时候，字符串要特别注意。即使是基本的字符串操作，也可能产生大量垃圾。这是为什么呢？</p>
+<p>因为字符串是无法改变的数组。这意味着，如果要把两个字符串连接起来，我们会创建新数组，而旧数组会成为垃圾。<strong>所以我们可以使用StringBuilder避免或最小化这类垃圾分配。</strong></p>
+<p>下面是改进该过程的示例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">//未优化的代码</span><br><span class="line">void Start()</span><br><span class="line">&#123;</span><br><span class="line">    text = GetComponent&lt;Text&gt;();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">void Update()</span><br><span class="line">&#123;</span><br><span class="line">    text.text = &quot;Player &quot; + name + &quot; has score &quot; + score.toString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//优化后的代码</span><br><span class="line">void Start()</span><br><span class="line">&#123;</span><br><span class="line">    text = GetComponent&lt;Text&gt;();</span><br><span class="line">    builder = new StringBuilder(50);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Update()</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">​    //StringBuilder为所有类型重载了Append方法</span><br><span class="line">​    builder.Length = 0;</span><br><span class="line">​    builder.Append(&quot;Player &quot;);</span><br><span class="line">​    builder.Append(name);</span><br><span class="line">​    builder.Append(&quot; has score &quot;);</span><br><span class="line">​    builder.Append(score);</span><br><span class="line">​    text.text = builder.ToString();</span><br><span class="line"></span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
+<p>示例中的原代码没什么问题，但仍有很大的改进空间。我们发现，几乎整个字符串都可以视为静态，所以我们把字符串分为两个部分，放到两个UI.Text对象中。</p>
+<p>第一个对象只包含静态文字“Player “ + name + “ has score “ ，可以在Start方法中指定。第二个对象包含每帧更新的Score数值，我们要使静态字符串完全是静态的，在Start方法或Awake方法中生成这类字符串。</p>
+<p>经过改进，代码已经很好了，但是调用Int.ToString()、Float.ToString()等函数仍会有垃圾产生。</p>
+<p>我们通过生成和预分配所有可能的字符串来解决该问题。这样可能听起来不是好方法，而且会消耗很多内存，但它完美满足了我们的需求，并彻底解决了这个问题。</p>
+<p>我们最后得到可以使用索引直接访问的静态数组，从而获取表示数字的请求字符串。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public static readonly string[] NUMBERS_THREE_DECIMAL = &#123;</span><br><span class="line">        &quot;000&quot;, &quot;001&quot;, &quot;002&quot;, &quot;003&quot;, &quot;004&quot;, &quot;005&quot;, &quot;006&quot;,..........</span><br></pre></td></tr></table></figure>
+<h4 id="规则4：缓存访问器返回的数值"><a href="#规则4：缓存访问器返回的数值" class="headerlink" title="规则4：缓存访问器返回的数值"></a>规则4：缓存访问器返回的数值</h4><p>这种方法可能很难使用，因为即使是简单的访问器也会产生垃圾。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//未优化的代码</span><br><span class="line"></span><br><span class="line">void Update()</span><br><span class="line">&#123;</span><br><span class="line">    gameObject.tag;</span><br><span class="line">    //or</span><br><span class="line"></span><br><span class="line">​    //或</span><br><span class="line">​    gameObject.name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>尝试避免在Update方法中使用访问器，只在Start方法中调用一次访问器，并缓存返回的数值。</p>
+<p>通常，建议不在Update方法中调用任何字符串访问器或数组访问器。在多数情况下，我们只需要在Start方法中获取一次引用。</p>
+<p>下面是未优化访问器代码的两个常见示例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//未优化的代码</span><br><span class="line">void Update()</span><br><span class="line">&#123;</span><br><span class="line">​    //分配包含所有touches的新数组</span><br><span class="line">​    Input.touches[0];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//优化后的代码</span><br><span class="line">void Update()</span><br><span class="line">&#123;</span><br><span class="line">    Input.GetTouch(0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//未优化的代码</span><br><span class="line">void Update()</span><br><span class="line">&#123;</span><br><span class="line">​    //返回新的字符串（垃圾），然后对比2个字符串</span><br><span class="line">​    gameObject.Tag == &quot;MyTag&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//优化后的代码</span><br><span class="line">void Update()</span><br><span class="line">&#123;</span><br><span class="line">    gameObject.CompareTag(&quot;MyTag&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="规则5：使用NonAlloc函数"><a href="#规则5：使用NonAlloc函数" class="headerlink" title="规则5：使用NonAlloc函数"></a>规则5：使用NonAlloc函数</h4><p>对于特定Unity函数，我们可以找到不分配任何内存的替代函数。在我们的项目中，这些函数都和物理功能有关。我们在碰撞检测使用的函数如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Physics2D. CircleCast();</span><br></pre></td></tr></table></figure>
+<p>对于该函数，我们可以找到不分配任何内存的版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Physics2D. CircleCastNonAlloc();</span><br></pre></td></tr></table></figure>
+<p>许多其它函数都有类似的替代函数，因此请记得查看文档，了解函数是否有相应的NonAlloc版本。</p>
+<h4 id="规则6：不要使用LINQ"><a href="#规则6：不要使用LINQ" class="headerlink" title="规则6：不要使用LINQ"></a>规则6：不要使用LINQ</h4><p>尽可能不要使用LINQ。也就是说，不要在任何经常执行的代码中使用LINQ。</p>
+<p>虽然使用LINQ可以使代码更容易阅读，但在很多情况下，这类代码的性能和内存分配都非常糟糕。</p>
+<h4 id="规则7：一次创建，多次重用（续）"><a href="#规则7：一次创建，多次重用（续）" class="headerlink" title="规则7：一次创建，多次重用（续）"></a>规则7：一次创建，多次重用（续）</h4><p>这次我们要讲的是对象池，如果你不了解对象池，请阅读教程：</p>
+<p><a href="https://learn.unity.com/tutorial/object-pooling" target="_blank" rel="noopener">https://learn.unity.com/tutorial/object-pooling</a></p>
+<p>在我们的游戏中，有一种情况使用了对象池。我们有一个生成的关卡，里面充满了只在限定时间存在的障碍物，障碍物在玩家通过相应关卡部分后会消失。</p>
+<p>在满足特定条件时，障碍物会从预制件进行实例化。相应的代码位于Update方法中，对于性能和执行时间而言，代码是非常低效的。</p>
+<p>我们的解决方法是：生成40个障碍物组成的对象池，在需要时从对象池取用这些障碍物对象，在障碍物不再需要时，把障碍物对象返回到对象池。</p>
+<h4 id="规则8：注意装箱过程"><a href="#规则8：注意装箱过程" class="headerlink" title="规则8：注意装箱过程"></a>规则8：注意装箱过程</h4><p>装箱过程会生成垃圾。什么是装箱过程呢？</p>
+<p>最常见的装箱过程是将数值类型，例如int，float，bool等传递到需要Object类型参数的函数时，所发生的过程。</p>
+<p>下面是我们要在项目中处理的装箱过程。</p>
+<p>我们在项目实现了自定义通信系统。每个信息可以包含数量不限的数据。该数据存储在字典中，字典的定义如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, object&gt; data;</span><br></pre></td></tr></table></figure>
+<p>我们有设置函数（Setter），用来将数值设置到该字典中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public Action SetAttribute(string attribute, object value)</span><br><span class="line">&#123;</span><br><span class="line">    data[attribute] = value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的装箱过程很明显，我们可以这样调用该函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SetAttribute(&quot;my_int_value&quot;, 12);</span><br></pre></td></tr></table></figure>
+<p>因此，这里的数值12进行装箱时，会产生垃圾。</p>
+<p>我们的解决方法是：为每个基本类型使用单独的数据容器，之前的Object容器仅用于引用类型。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;string, object&gt; data;</span><br><span class="line"></span><br><span class="line">Dictionary&lt;string, bool&gt; dataBool;</span><br><span class="line">Dictionary&lt;string, int&gt; dataInt;</span><br><span class="line">.......</span><br></pre></td></tr></table></figure>
+<p>为每个数据类型使用单独的设置函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SetBoolAttribute(string attribute, bool value)</span><br><span class="line">SetIntAttribute(string attribute, int value)</span><br></pre></td></tr></table></figure>
+<p>然后实现所有设置函数，使它们调用相同的通用函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SetAttribute&lt;T&gt;(ref Dictionary&lt;string, T&gt; dict, string attribute, T value)</span><br></pre></td></tr></table></figure>
+<p>这样装箱过程就被我们移除了。如果你想了解更多细节，请阅读下面的文档：</p>
+<p><a href="https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/types/boxing-and-unboxing" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/types/boxing-and-unboxing</a></p>
+<h4 id="规则9：小心循环代码"><a href="#规则9：小心循环代码" class="headerlink" title="规则9：小心循环代码"></a>规则9：小心循环代码</h4><p>这条规则类似第1，2条规则。尽可能把所有不必要代码从循环中去掉，从而取得更好的性能和内存分配。</p>
+<p>我们要尝试避免在Update方法中使用循环，但如果有这个需要，我们至少要在这种循环中避免出现内存分配。因此，不仅是针对Update方法，我们也要在循环代码中遵循前8条规则。</p>
+<h4 id="规则10：确保外部代码库不产生垃圾"><a href="#规则10：确保外部代码库不产生垃圾" class="headerlink" title="规则10：确保外部代码库不产生垃圾"></a>规则10：确保外部代码库不产生垃圾</h4><p>如果发现部分垃圾由Asset Store资源商店下载的代码产生，我们有多个解决方法。但在我们进行逆向工程并调试前，请再次查看Asset Store资源商店的相应页面，代码库是否有进行更新。</p>
+<p>在我们的项目中，我们使用的所有资源一直由资源的开发者进行维护，他们一直在进行性能更新，从而解决了我们的所有问题。</p>
+<p>所以，一定要让项目使用的依赖保持更新。如果遇到没有维护的代码库，建议放弃这类代码库。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>由于篇幅限制，本文介绍了优化Unity游戏项目的C#脚本的第一部分处理垃圾回收，下篇我们将分享<strong>如何将执行时间减少</strong>，敬请期待!</p>
+<p>下载Unity Connect APP，<a href="http://mp.weixin.qq.com/s?__biz=MzU5MjQ1NTEwOA==&amp;mid=2247500376&amp;idx=2&amp;sn=178fcfe8997569ce8eebb69355aa145e&amp;chksm=fe1df6f3c96a7fe5d26b3c16fee3fc6075c2658d1a2452b58d85e65eaf6f012c0db403c12128&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">请点击此处</a>。 观看部分Unity官方视频，请关注B站帐户：Unity官方。</p>
+<p>你可以访问Unity答疑专区留下你的问题，Unity社区和官方团队帮你解答：</p>
+<p>Connect.unity.com/g/discussion</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="王国聪 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="王国聪 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/专业/" rel="tag"># 专业</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/21/Unity特效性能分析工具/" rel="next" title="Unity特效性能分析工具">
+                <i class="fa fa-chevron-left"></i> Unity特效性能分析工具
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+  
+   </div>
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/2.jpg" alt="王国聪">
+            
+              <p class="site-author-name" itemprop="name">王国聪</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangguocong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangzhezhijian" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/6072272096/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wa.ng1846" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+	
+          
+          
+
+          
+          
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#优化Unity游戏项目的脚本（上）"><span class="nav-number">1.</span> <span class="nav-text">优化Unity游戏项目的脚本（上）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#寻找问题"><span class="nav-number">1.1.</span> <span class="nav-text">寻找问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何在性能分析器中找到导致垃圾分配的脚本？"><span class="nav-number">1.1.1.</span> <span class="nav-text">如何在性能分析器中找到导致垃圾分配的脚本？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一部分：处理垃圾回收"><span class="nav-number">1.1.2.</span> <span class="nav-text">第一部分：处理垃圾回收</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#规则1：不在Update方法中创建新对象"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">规则1：不在Update方法中创建新对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则2：一次创建，多次重用"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">规则2：一次创建，多次重用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则3：小心处理字符串，避免字符串连接"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">规则3：小心处理字符串，避免字符串连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则4：缓存访问器返回的数值"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">规则4：缓存访问器返回的数值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则5：使用NonAlloc函数"><span class="nav-number">1.1.2.5.</span> <span class="nav-text">规则5：使用NonAlloc函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则6：不要使用LINQ"><span class="nav-number">1.1.2.6.</span> <span class="nav-text">规则6：不要使用LINQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则7：一次创建，多次重用（续）"><span class="nav-number">1.1.2.7.</span> <span class="nav-text">规则7：一次创建，多次重用（续）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则8：注意装箱过程"><span class="nav-number">1.1.2.8.</span> <span class="nav-text">规则8：注意装箱过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则9：小心循环代码"><span class="nav-number">1.1.2.9.</span> <span class="nav-text">规则9：小心循环代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则10：确保外部代码库不产生垃圾"><span class="nav-number">1.1.2.10.</span> <span class="nav-text">规则10：确保外部代码库不产生垃圾</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.1.3.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王国聪</span>
+
+  
+</div>
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'kFDzUjHEhV5wo8WKMcXQGmB7-gzGzoHsz',
+        appKey: 'vPuL0oXJC12Vo7xj524tF3ng',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  	<!-- 页面点击小红心 -->
+	<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
+
