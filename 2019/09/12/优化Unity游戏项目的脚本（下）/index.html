@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="专业,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="优化Unity游戏项目的脚本（下） 欢迎 来到  王国聪的博客!    今天，我们继续分享来自捷克的开发工程师Ondřej Kofroň，分享C#脚本的一系列优化方法。 在优化Unity游戏项目的脚本（上)）中，我们介绍了如何查找C#脚本中的问题，以及垃圾回收的处理。本文我们将介绍如何减少C#脚本的执行时间。  第二部分：减少脚本的执行时间如果代码不经常调用，这部分提到的一些规则可能不会产生明显的">
+<meta name="keywords" content="专业">
+<meta property="og:type" content="article">
+<meta property="og:title" content="优化Unity游戏项目的脚本（下）">
+<meta property="og:url" content="http://yoursite.com/2019/09/12/优化Unity游戏项目的脚本（下）/index.html">
+<meta property="og:site_name" content="欢迎来到王国聪的博客">
+<meta property="og:description" content="优化Unity游戏项目的脚本（下） 欢迎 来到  王国聪的博客!    今天，我们继续分享来自捷克的开发工程师Ondřej Kofroň，分享C#脚本的一系列优化方法。 在优化Unity游戏项目的脚本（上)）中，我们介绍了如何查找C#脚本中的问题，以及垃圾回收的处理。本文我们将介绍如何减少C#脚本的执行时间。  第二部分：减少脚本的执行时间如果代码不经常调用，这部分提到的一些规则可能不会产生明显的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/09/12/优化Unity游戏项目的脚本（下）/0.webp">
+<meta property="og:updated_time" content="2019-09-12T06:03:37.214Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="优化Unity游戏项目的脚本（下）">
+<meta name="twitter:description" content="优化Unity游戏项目的脚本（下） 欢迎 来到  王国聪的博客!    今天，我们继续分享来自捷克的开发工程师Ondřej Kofroň，分享C#脚本的一系列优化方法。 在优化Unity游戏项目的脚本（上)）中，我们介绍了如何查找C#脚本中的问题，以及垃圾回收的处理。本文我们将介绍如何减少C#脚本的执行时间。  第二部分：减少脚本的执行时间如果代码不经常调用，这部分提到的一些规则可能不会产生明显的">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/12/优化Unity游戏项目的脚本（下）/0.webp">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/12/优化Unity游戏项目的脚本（下）/">
+
+
+
+
+
+  <title>优化Unity游戏项目的脚本（下） | 欢迎来到王国聪的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">欢迎来到王国聪的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">所有的为时已晚都是开始的最好时候</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/12/优化Unity游戏项目的脚本（下）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王国聪">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="欢迎来到王国聪的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">优化Unity游戏项目的脚本（下）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-12T13:49:45+08:00">
+                2019-09-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/unity/" itemprop="url" rel="index">
+                    <span itemprop="name">unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/12/优化Unity游戏项目的脚本（下）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/12/优化Unity游戏项目的脚本（下）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="优化Unity游戏项目的脚本（下）"><a href="#优化Unity游戏项目的脚本（下）" class="headerlink" title="优化Unity游戏项目的脚本（下）"></a><center>优化Unity游戏项目的脚本（下）</center></h1><ul>
+<li><p>欢迎 来到  <a href="https://wangguocong.github.io/archives/" target="_blank" rel="noopener">王国聪</a>的博客! </p>
+</li>
+</ul>
+<p>今天，我们继续分享来自捷克的开发工程师Ondřej Kofroň，分享C#脚本的一系列优化方法。</p>
+<p>在<a href="[https://wangguocong.github.io/2019/09/12/%E4%BC%98%E5%8C%96Unity%E6%B8%B8%E6%88%8F%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%84%9A%E6%9C%AC%EF%BC%88%E4%B8%8A%EF%BC%89/#more](https://wangguocong.github.io/2019/09/12/优化Unity游戏项目的脚本（上）/#more">优化Unity游戏项目的脚本（上</a>)）中，我们介绍了如何查找C#脚本中的问题，以及垃圾回收的处理。本文我们将介绍<strong>如何减少C#脚本的执行时间</strong>。</p>
+<p><img src="/2019/09/12/优化Unity游戏项目的脚本（下）/0.webp" alt="0"></p>
+<h3 id="第二部分：减少脚本的执行时间"><a href="#第二部分：减少脚本的执行时间" class="headerlink" title="第二部分：减少脚本的执行时间"></a>第二部分：减少脚本的执行时间</h3><p>如果代码不经常调用，这部分提到的一些规则可能不会产生明显的作用。在我们的项目中，我们有一个每帧执行的大型循环，因此在该代码中，即使做很小的改动，也会产生很明显的作用。</p>
+<p>如果使用方法不当或在不合适的情形下使用，部分改动可能会产生更差的执行时间。每次对代码进行优化方面的改动后，要记得查看性能分析器，确保改动有理想的效果。</p>
+<p>这部分的一些规则可能会导致代码变得难以理解，甚至可能会破坏最佳编程实践。这部分的许多规则和第一部分的规则有所重复。和不分配垃圾的代码相比，垃圾分配代码通常有更差的执行效果，建议在阅读这部分内容之前，先仔细阅读<a href="http://mp.weixin.qq.com/s?__biz=MzU5MjQ1NTEwOA==&amp;mid=2247500903&amp;idx=1&amp;sn=68a7b000cc48db66da21fa5bc30ae3f5&amp;chksm=fe1df0ccc96a79da44681a870f3a1552104b0ffc554fc476acef21e788e72bae8203bdbbaef7&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">本文的第一部分</a>。</p>
+<h4 id="规则1：使用合适的执行顺序"><a href="#规则1：使用合适的执行顺序" class="headerlink" title="规则1：使用合适的执行顺序"></a>规则1：使用合适的执行顺序</h4><p>将代码从FixedUpdate，Update和LateUpdate方法转移到Start和Awake方法中。虽然这听起来不现实，但如果深入分析代码，你会发现有数百行代码可以移动到仅执行一次的方法中。</p>
+<p>在我们的项目中，这类代码通常和下面操作有关：</p>
+<ul>
+<li>GetComponent&lt;&gt; Calls</li>
+<li>每帧返回相同结果的计算过程</li>
+<li>重复实例化相同的对象，通常这类对象为List列表</li>
+<li>寻找某些游戏对象</li>
+<li>获取对Transform的引用，使用其它访问器</li>
+</ul>
+<p>下面是我们从Update方法移动到Start方法的代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">//将GetComponent留在Update方法必须有很好的理由</span><br><span class="line"></span><br><span class="line">gameObject.GetComponent&lt;LineRenderer&gt;();</span><br><span class="line"></span><br><span class="line">gameObject.GetComponent&lt;CircleCollider2D&gt;();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//每帧返回相同结果的计算过程示例</span><br><span class="line"></span><br><span class="line">Mathf.FloorToInt(Screen.width / 2);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var width = 2f * mainCamera.orthographicSize * mainCamera.aspect;</span><br><span class="line"></span><br><span class="line">var castRadius = circleCollider.radius * transform.lossyScale.x;</span><br><span class="line"></span><br><span class="line">var halfSize = GetComponent&lt;SpriteRenderer&gt;().bounds.size.x / 2f;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//寻找对象</span><br><span class="line"></span><br><span class="line">var levelObstacles = FindObjectsOfType&lt;Obstacle&gt;();</span><br><span class="line"></span><br><span class="line">var levelCollectibles = FindGameObjectsWithTag(&quot;COLLECTIBLE&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//引用</span><br><span class="line">objectTransform = gameObject.transform;</span><br><span class="line">mainCamera = Camera.main;</span><br></pre></td></tr></table></figure>
+<h4 id="规则2：仅在需要时运行代码"><a href="#规则2：仅在需要时运行代码" class="headerlink" title="规则2：仅在需要时运行代码"></a>规则2：仅在需要时运行代码</h4><p>在我们的项目中，这种情况大多和更新UI的脚本有关。下面是我们修改的代码实现，它们作用是显示关卡中“可收集物品”的当前状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//未优化的代码 </span><br><span class="line"></span><br><span class="line">Text text;</span><br><span class="line">GameState gameState;void Start()</span><br><span class="line">&#123;</span><br><span class="line">    gameState = StoreProvider.Get&lt;GameState&gt;();    </span><br><span class="line">    text = GetComponent&lt;Text&gt;();</span><br><span class="line">&#125;void Update()</span><br><span class="line">&#123;</span><br><span class="line">    text.text = gameState.CollectedCollectibles.ToString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为我们在每关中只有少量可收集物品，每帧都修改UI文本不会产生很大作用，因此我们仅在实际数字变化时改变文本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//优化后的代码 </span><br><span class="line">Text text;</span><br><span class="line">GameState gameState;</span><br><span class="line">int collectiblesCount;</span><br><span class="line"></span><br><span class="line">void Start()</span><br><span class="line">&#123;</span><br><span class="line">    gameState = StoreProvider.Get&lt;GameState&gt;();    </span><br><span class="line">    text = GetComponent&lt;Text&gt;();</span><br><span class="line">    collectiblesCount = gameState.CollectedCollectibles;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Update()</span><br><span class="line">&#123;</span><br><span class="line">    if(collectiblesCount != gameState.CollectedCollectibles) &#123;</span><br><span class="line">​        //该代码每关只运行5次</span><br><span class="line">​        collectiblesCount = gameState.CollectedCollectibles;</span><br><span class="line">​        text.text = collectiblesCount.ToString();</span><br><span class="line">​    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样的的代码性能会更好，特别在代码作用不只是简单的UI变化时，会有更好的效果。如果想要更复杂的解决方法，建议通过使用C#事件实现观察者设计模式。</p>
+<p>但对于对我们而言还不够好，我们希望实现完全通用的解决方案，因此我们创建了在Unity实现Flux架构的代码库。</p>
+<p>这样可以实现非常简单的解决方案，我们把所有游戏状态都存储到“Store”对象，在任何状态发生改变时，所有UI元素和其它组件都会得到通知，然后它们会对改变做出反应，整个过程不需要在Update方法使用任何代码。</p>
+<p>了解C#事件：</p>
+<p><a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/events/" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/events/</a></p>
+<p>了解观察者设计模式：</p>
+<p><a href="https://en.wikipedia.org/wiki/Observer_pattern" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Observer_pattern</a></p>
+<p>了解Flux架构：</p>
+<p><a href="https://facebook.github.io/flux/" target="_blank" rel="noopener">https://facebook.github.io/flux/</a></p>
+<h4 id="规则3：小心循环代码"><a href="#规则3：小心循环代码" class="headerlink" title="规则3：小心循环代码"></a>规则3：小心循环代码</h4><p>这条规则和第一部分的第9条规则相同。如果代码中有循环会迭代大量元素，请使用本文第二个部分提到的所有规则，来改进循环代码的性能。</p>
+<h4 id="规则4：使用For循环代替Foreach循环"><a href="#规则4：使用For循环代替Foreach循环" class="headerlink" title="规则4：使用For循环代替Foreach循环"></a>规则4：使用For循环代替Foreach循环</h4><p>Foreach循环很容易编写，但是执行起来却很复杂。Foreach循环在内部会使用枚举器来迭代特定数据集，并返回数值。</p>
+<p>这比在For循环迭代索引复杂很多。因此在我们的项目中，只要可以的话，我们都会把Foreach循环改为For循环，如下所示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//未优化的代码</span><br><span class="line">foreach (GameObject obstacle in obstacles)</span><br><span class="line"></span><br><span class="line">//优化后的代码</span><br><span class="line"></span><br><span class="line">var count = obstacles.Count;</span><br><span class="line">for (int i = 0; i &lt; count; i++) &#123;</span><br><span class="line">    obstacles[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在我们的大型For循环中，这项改动的效果非常明显。通过使用简单的For循环，我们实现了速度比原来快2倍的代码。</p>
+<h4 id="规则5：使用Array数组代替List列表"><a href="#规则5：使用Array数组代替List列表" class="headerlink" title="规则5：使用Array数组代替List列表"></a>规则5：使用Array数组代替List列表</h4><p>在代码中，我们发现大多数列表有固定的长度，或是可以计算出最大成员数量。因此我们使用数组重新实现了这些列表，在特定情况下，可以在迭代数据的时候得到原先2倍的速度。</p>
+<p>在某些情况下，我们无法避免使用列表或其它复杂的数据结构。常见的情况是：需要经常添加或移除元素的时候，使用列表的效果更好的时候。通常来说，我们会对固定大小的列表使用数组。</p>
+<h4 id="规则6：使用Float运算替代Vector运算"><a href="#规则6：使用Float运算替代Vector运算" class="headerlink" title="规则6：使用Float运算替代Vector运算"></a>规则6：使用Float运算替代Vector运算</h4><p>Float运算和Vector运算的区别不是很明显，除非像我们一样进行上千次运算，因此对我们来说，这项改动的性能提升效果非常明显。</p>
+<p>改动如下所示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Vector3 pos1 = new Vector3(1,2,3);</span><br><span class="line"></span><br><span class="line">Vector3 pos2 = new Vector3(4,5,6);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//未优化的代码</span><br><span class="line"></span><br><span class="line">var pos3 = pos1 + pos2;</span><br><span class="line"></span><br><span class="line">//优化后的代码</span><br><span class="line"></span><br><span class="line">var pos3 = new Vector3(pos1.x + pos2.x, pos1.y + pos2.y, ......);</span><br><span class="line"></span><br><span class="line">Vector3 pos1 = new Vector3(1,2,3);</span><br><span class="line"></span><br><span class="line">//未优化的代码</span><br><span class="line">var pos2 = pos1 * 2f;</span><br><span class="line"></span><br><span class="line">//优化后的代码</span><br><span class="line">var pos2 = new Vector3(pos1.x * 2f, pos1.y * 2f, ......);</span><br></pre></td></tr></table></figure>
+<h4 id="规则7：寻找对象属性"><a href="#规则7：寻找对象属性" class="headerlink" title="规则7：寻找对象属性"></a>规则7：寻找对象属性</h4><p>一定要考虑是否必须使用GameObject.Find()方法。该方法会产生很大开销，占据大量时间。最好不在Update方法中使用GameObject.Find()方法。</p>
+<p>我们发现大多数GameObject.Find()调用可以替换为编辑器中直接引用的关联，这是更好的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//未优化的代码</span><br><span class="line"></span><br><span class="line">GameObject player;</span><br><span class="line"></span><br><span class="line">void Start()</span><br><span class="line">&#123;</span><br><span class="line">    player = GameObject.Find(&quot;PLAYER&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//优化后的代码</span><br><span class="line"></span><br><span class="line">//在编辑器中把该引用指定给玩家对象</span><br><span class="line"></span><br><span class="line">[SerializeField]</span><br><span class="line">GameObject player;</span><br><span class="line"></span><br><span class="line">void Start()</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果无法这样处理，开发者至少应该考虑使用Tag标签，通过使用GameObject.FindWithTag，根据标签来找到对象。</p>
+<p>总体上说，<strong>三种方法的优先级为：直接引用 &gt; GameObject.FindWithTag() &gt; GameObject.Find()。</strong></p>
+<h4 id="规则8：只处理相关对象"><a href="#规则8：只处理相关对象" class="headerlink" title="规则8：只处理相关对象"></a>规则8：只处理相关对象</h4><p>在我们的项目中，该规则对使用RayCasts和CircleCasts等函数的碰撞检查功能有明显的效果。我们不必在代码中检测所有碰撞并决定哪些对象是相关的，只需把游戏对象都移动到合适的图层即可，这样我们可以只对相关对象计算碰撞。</p>
+<p>下面是示例代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">//未优化的代码</span><br><span class="line"></span><br><span class="line">void DetectCollision()</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">     var count = Physics2D.CircleCastNonAlloc(</span><br><span class="line">     position, radius, direction, results, distance);</span><br><span class="line"></span><br><span class="line">     for (int i = 0; i &lt; count; i++) &#123;</span><br><span class="line"></span><br><span class="line">     var obj = results[i].collider.transform.gameObject;</span><br><span class="line"></span><br><span class="line">     if(obj.CompareTag(&quot;FOO&quot;)) &#123;</span><br><span class="line"></span><br><span class="line">          ProcessCollision(results[i]);</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//优化后的代码</span><br><span class="line"></span><br><span class="line">//我们把所有带有标签FOO的对象都放入了相同的图层</span><br><span class="line"></span><br><span class="line">void DetectCollision()</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">   //8是相应图层的编号</span><br><span class="line"></span><br><span class="line">   var mask = 1 &lt;&lt; 8;</span><br><span class="line"></span><br><span class="line">   var count = Physics2D.CircleCastNonAlloc(</span><br><span class="line"></span><br><span class="line">   position, radius, direction, results, distance, mask);</span><br><span class="line"></span><br><span class="line">   for (int i = 0; i &lt; count; i++) &#123;</span><br><span class="line"></span><br><span class="line">       ProcessCollision(results[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="规则9：使用标签属性"><a href="#规则9：使用标签属性" class="headerlink" title="规则9：使用标签属性"></a>规则9：使用标签属性</h4><p>标签非常实用，可以提升代码的性能，但请记住：只有一种正确方法适合比较对象标签。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//未优化的代码</span><br><span class="line"></span><br><span class="line">gameObject.Tag == &quot;MyTag&quot;;</span><br><span class="line"></span><br><span class="line">//优化后的代码</span><br><span class="line"></span><br><span class="line">gameObject.CompareTag(&quot;MyTag&quot;);</span><br></pre></td></tr></table></figure>
+<h4 id="规则10：小心棘手的摄像机"><a href="#规则10：小心棘手的摄像机" class="headerlink" title="规则10：小心棘手的摄像机"></a>规则10：小心棘手的摄像机</h4><p>使用Camera.main很简单，但是这种操作的性能非常糟糕。这是因为在每个Camera.main调用背后，Unity其实会执行FindGameObjectsWithTag()来获取结果，因此频繁调用Camera.main并不好。</p>
+<p>最好的解决方法是在Start或Awake方法中缓存Camera.main的引用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">//未优化的代码</span><br><span class="line">void Update()</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    Camera.main.orthographicSize //对摄像机的一些操作</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//优化后的代码</span><br><span class="line"></span><br><span class="line">private Camera cam;</span><br><span class="line"></span><br><span class="line">void Start()</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    cam = Camera.main;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Update()</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    cam.orthographicSize //对摄像机的一些操作</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="规则11：使用LocalPosition替代Position"><a href="#规则11：使用LocalPosition替代Position" class="headerlink" title="规则11：使用LocalPosition替代Position"></a>规则11：使用LocalPosition替代Position</h4><p>在代码允许的位置，为获取函数(Getter)和设置函数（Setter）使用Transform.LocalPosition替代Transform.Position。</p>
+<p>这样的原因是：每次Transform.Position调用的背后，都会有更多操作要执行，包括在调用获取函数时计算全局位置，或是在调用设置函数时从全局位置计算出本地位置。</p>
+<p>在项目中，我们发现在出现Transform.Position的几乎所有情况中都可以用LocalPosition替代Transform.Position，无需在代码中做其它改动。</p>
+<h4 id="规则12：不要使用LINQ"><a href="#规则12：不要使用LINQ" class="headerlink" title="规则12：不要使用LINQ"></a>规则12：不要使用LINQ</h4><p>这条规则已经第一部分讲解，别使用LINQ就好。</p>
+<h4 id="规则13：不要害怕破坏最佳实践"><a href="#规则13：不要害怕破坏最佳实践" class="headerlink" title="规则13：不要害怕破坏最佳实践"></a>规则13：不要害怕破坏最佳实践</h4><p>有时候，即使是一个简单的函数调用，都可能造成过多的开销。在这种情况下，我们应该考虑使用代码内联。</p>
+<p>代码内联是什么？代码内联意味着，我们可以把代码从函数中取出，把这些代码直接复制到打算使用函数的位置，从而避免额外的方法调用。</p>
+<p>因为代码内联会在编译时自动完成，所以在大多数情况下，这样不会产生太明显的效果。在编译器决定代码是否内联时，会使用特定的规则。例如：Virtual方法从不会内联，更多详细信息，请访问：</p>
+<p><a href="https://docs.unity3d.com/Manual/BestPracticeUnderstandingPerformanceInUnity8.html。" target="_blank" rel="noopener">https://docs.unity3d.com/Manual/BestPracticeUnderstandingPerformanceInUnity8.html。</a></p>
+<p>我们需要打开性能分析器，在实际设备上运行游戏，从而了解是否仍有改进的空间。</p>
+<p>在项目中，我们发现一些函数可以通过代码内联实现更好的性能，特别是游戏的大型For循环中的函数。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>通过使用本文介绍的规则，我们在iOS游戏中轻松实现了稳定的60fps，即使在iPhone 5S也有这样的运行效果。</p>
+<p>本文的部分规则针对我们的用例而使用，但我认为在进行编程或代码评审时，开发者应该考虑这些规则，从而避免在后期阶段出现问题。在考虑性能因素的同时编写代码会比之后重构大量代码更简单。</p>
+<p>下载Unity Connect APP，<a href="http://mp.weixin.qq.com/s?__biz=MzU5MjQ1NTEwOA==&amp;mid=2247500376&amp;idx=2&amp;sn=178fcfe8997569ce8eebb69355aa145e&amp;chksm=fe1df6f3c96a7fe5d26b3c16fee3fc6075c2658d1a2452b58d85e65eaf6f012c0db403c12128&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">请点击此处</a>。 观看部分Unity官方视频，请关注B站帐户：Unity官方。</p>
+<p>你可以访问Unity答疑专区留下你的问题，Unity社区和官方团队帮你解答：</p>
+<p>Connect.unity.com/g/discussion</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="王国聪 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="王国聪 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/专业/" rel="tag"># 专业</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/12/优化Unity游戏项目的脚本（上）/" rel="next" title="优化Unity游戏项目的脚本（上）">
+                <i class="fa fa-chevron-left"></i> 优化Unity游戏项目的脚本（上）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+  
+   </div>
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/2.jpg" alt="王国聪">
+            
+              <p class="site-author-name" itemprop="name">王国聪</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangguocong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/wangzhezhijian" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/6072272096/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/wa.ng1846" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+	
+          
+          
+
+          
+          
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#优化Unity游戏项目的脚本（下）"><span class="nav-number">1.</span> <span class="nav-text">优化Unity游戏项目的脚本（下）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第二部分：减少脚本的执行时间"><span class="nav-number">1.0.1.</span> <span class="nav-text">第二部分：减少脚本的执行时间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#规则1：使用合适的执行顺序"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">规则1：使用合适的执行顺序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则2：仅在需要时运行代码"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">规则2：仅在需要时运行代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则3：小心循环代码"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">规则3：小心循环代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则4：使用For循环代替Foreach循环"><span class="nav-number">1.0.1.4.</span> <span class="nav-text">规则4：使用For循环代替Foreach循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则5：使用Array数组代替List列表"><span class="nav-number">1.0.1.5.</span> <span class="nav-text">规则5：使用Array数组代替List列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则6：使用Float运算替代Vector运算"><span class="nav-number">1.0.1.6.</span> <span class="nav-text">规则6：使用Float运算替代Vector运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则7：寻找对象属性"><span class="nav-number">1.0.1.7.</span> <span class="nav-text">规则7：寻找对象属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则8：只处理相关对象"><span class="nav-number">1.0.1.8.</span> <span class="nav-text">规则8：只处理相关对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则9：使用标签属性"><span class="nav-number">1.0.1.9.</span> <span class="nav-text">规则9：使用标签属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则10：小心棘手的摄像机"><span class="nav-number">1.0.1.10.</span> <span class="nav-text">规则10：小心棘手的摄像机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则11：使用LocalPosition替代Position"><span class="nav-number">1.0.1.11.</span> <span class="nav-text">规则11：使用LocalPosition替代Position</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则12：不要使用LINQ"><span class="nav-number">1.0.1.12.</span> <span class="nav-text">规则12：不要使用LINQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则13：不要害怕破坏最佳实践"><span class="nav-number">1.0.1.13.</span> <span class="nav-text">规则13：不要害怕破坏最佳实践</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.0.2.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+	
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王国聪</span>
+
+  
+</div>
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'kFDzUjHEhV5wo8WKMcXQGmB7-gzGzoHsz',
+        appKey: 'vPuL0oXJC12Vo7xj524tF3ng',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  	<!-- 页面点击小红心 -->
+	<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
+
